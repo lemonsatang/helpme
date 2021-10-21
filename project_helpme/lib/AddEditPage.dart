@@ -14,6 +14,7 @@ class AddEditPage extends StatefulWidget {
 class _AddEditPageState extends State<AddEditPage> {
   TextEditingController comp = TextEditingController();
   TextEditingController c_code = TextEditingController();
+  TextEditingController j_bunho = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController fax = TextEditingController();
   TextEditingController usrnm = TextEditingController();
@@ -30,11 +31,13 @@ class _AddEditPageState extends State<AddEditPage> {
 
   addUpdateData() {
     if (editMode) {
-      var url = 'http://192.168.0.191/edit.php';
+      // var url = 'http://192.168.0.191/edit.php';
+      var url = 'http://221.164.17.167/edit.php';
       http.post(url, body: {
         'ID': widget.list[widget.index]['ID'],
         'COMP': comp.text,
         'C_CODE': c_code.text,
+        'J_BUNHO': j_bunho.text,
         'PHONE': phone.text,
         'FAX': fax.text,
         'USRNM': usrnm.text,
@@ -47,11 +50,13 @@ class _AddEditPageState extends State<AddEditPage> {
         'MUESR': muser.text,
       });
     } else {
-      var url = 'http://192.168.0.191/add.php';
+      // var url = 'http://192.168.0.191/add.php';
+      var url = 'http://221.164.17.167/add.php';
       try {
         http.post(url, body: {
           'COMP': comp.text,
           'C_CODE': c_code.text,
+          'J_BUNHO': j_bunho.text,
           'PHONE': phone.text,
           'FAX': fax.text,
           'USRNM': usrnm.text,
@@ -76,6 +81,7 @@ class _AddEditPageState extends State<AddEditPage> {
       editMode = true;
       comp.text = widget.list[widget.index]['COMP'];
       c_code.text = widget.list[widget.index]['C_CODE'];
+      j_bunho.text = widget.list[widget.index]['J_BUNHO'];
       phone.text = widget.list[widget.index]['PHONE'];
       fax.text = widget.list[widget.index]['FAX'];
       usrnm.text = widget.list[widget.index]['USRNM'];
@@ -160,6 +166,15 @@ class _AddEditPageState extends State<AddEditPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     controller: c_code,
+                    decoration: InputDecoration(
+                      labelText: '거래처 코드',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: j_bunho,
                     decoration: InputDecoration(
                       labelText: '거래처 코드',
                     ),

@@ -24,10 +24,15 @@ class _AddEditPageState extends State<AddEditPage> {
   TextEditingController sryang = TextEditingController();
   TextEditingController jryang = TextEditingController();
   TextEditingController bigo = TextEditingController();
+  TextEditingController cdate = TextEditingController();
   TextEditingController cuser = TextEditingController();
+  TextEditingController mdate = TextEditingController();
   TextEditingController muser = TextEditingController();
 
   bool editMode = false;
+
+  static const int numItems = 20;
+  List<bool> selected = List<bool>.generate(numItems, (int index) => false);
 
   addUpdateData() {
     if (editMode) {
@@ -89,6 +94,9 @@ class _AddEditPageState extends State<AddEditPage> {
       sryang.text = widget.list[widget.index]['SRYANG'];
       jryang.text = widget.list[widget.index]['JRYANG'];
       bigo.text = widget.list[widget.index]['BIGO'];
+      cdate.text = widget.list[widget.index]['CDATE'];
+      cuser.text = widget.list[widget.index]['CUSER'];
+      mdate.text = widget.list[widget.index]['MDATE'];
       muser.text = widget.list[widget.index]['MUSER'];
     }
   }
@@ -120,30 +128,82 @@ class _AddEditPageState extends State<AddEditPage> {
                 },
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('저장'),
-                      Icon(Icons.save),
+                      Icon(
+                        Icons.save,
+                        size: 14.0,
+                        color: Colors.green[700],
+                      ),
+                      Text(
+                        '저장',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
             ],
             flexibleSpace: PreferredSize(
-              preferredSize: Size.fromHeight(100),
+              preferredSize: Size.fromHeight(160.0),
               child: Center(
-                child: Row(
-                  children: [
-                    Text('Ggieeeeeeeeek'),
-                  ],
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            comp.text,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            '거래처 코드 : ' + c_code.text,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            cdate.text,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            '연락처 : ' + phone.text,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
             bottom: TabBar(
               indicatorColor: Colors.green,
               labelColor: Colors.green,
+              labelPadding: EdgeInsets.all(10.0),
               tabs: [
                 Text('의뢰 개요'),
                 Text('상세정보'),
@@ -292,8 +352,64 @@ class _AddEditPageState extends State<AddEditPage> {
                 ),
               ],
             ), // 첫번째 탭
-            Center(
-              child: Text('Juice Newton - Angel of the Morning'),
+            SingleChildScrollView(
+              child: SizedBox(
+                width: double.infinity,
+                child:
+                    // 임시 데이터테이블
+
+                    DataTable(
+                  headingRowHeight: 40.0,
+                  headingRowColor: MaterialStateColor.resolveWith(
+                    (states) {
+                      return Colors.grey.withOpacity(0.5);
+                    },
+                  ),
+                  headingTextStyle: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[800],
+                  ),
+                  dataTextStyle: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.grey[600],
+                  ),
+                  columns: const <DataColumn>[
+                    DataColumn(
+                      label: Text('순번'),
+                    ),
+                    DataColumn(
+                      label: Text('품명'),
+                    ),
+                    DataColumn(
+                      label: Text('수량'),
+                    ),
+                    DataColumn(
+                      label: Text('중량'),
+                    ),
+                  ],
+                  rows: List<DataRow>.generate(
+                    numItems,
+                    (int index) => DataRow(
+                      color: MaterialStateProperty.resolveWith<Color?>(
+                          (Set<MaterialState> states) {
+                        if (index.isEven) {
+                          return Colors.grey.withOpacity(0.2);
+                        }
+                        return null;
+                      }),
+                      cells: <DataCell>[
+                        DataCell(Text('$index')),
+                        DataCell(Text('끼요오오오오옷')),
+                        DataCell(Text('끼에에엑')),
+                        DataCell(Text('끄아아악')),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // 임시 데이터테이블
+              ),
             ), // 두번재 탭
           ],
         ),

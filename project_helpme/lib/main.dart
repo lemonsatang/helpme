@@ -46,7 +46,7 @@ class _SJMainState extends State<SJMain> {
   Future getData() async {
     try {
       // var url = 'http://192.168.0.191/read.php';
-      var url = 'http://221.164.17.167/read.php';
+      var url = 'http://222.96.120.94/read.php';
       var response = await http.get(url);
       return json.decode(response.body);
     } catch (e) {
@@ -114,8 +114,7 @@ class _SJMainState extends State<SJMain> {
                                 setState(
                                   () {
                                     // var url = 'http://192.168.0.191/delete.php';
-                                    var url =
-                                        'http://221.164.17.167/delete.php';
+                                    var url = 'http://222.96.120.94/delete.php';
                                     http.post(
                                       url,
                                       body: {

@@ -32,7 +32,7 @@ class _AddEditPageState extends State<AddEditPage> {
   addUpdateData() {
     if (editMode) {
       // var url = 'http://192.168.0.191/edit.php';
-      var url = 'http://221.164.17.167/edit.php';
+      var url = 'http://222.96.120.94/edit.php';
       http.post(url, body: {
         'ID': widget.list[widget.index]['ID'],
         'COMP': comp.text,
@@ -51,7 +51,7 @@ class _AddEditPageState extends State<AddEditPage> {
       });
     } else {
       // var url = 'http://192.168.0.191/add.php';
-      var url = 'http://221.164.17.167/add.php';
+      var url = 'http://222.96.120.94/add.php';
       try {
         http.post(url, body: {
           'COMP': comp.text,

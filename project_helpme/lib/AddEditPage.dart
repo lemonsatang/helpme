@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_helpme/main.dart';
+import 'dart:convert';
 
 class AddEditPage extends StatefulWidget {
   final List list;
@@ -24,15 +25,26 @@ class _AddEditPageState extends State<AddEditPage> {
   TextEditingController sryang = TextEditingController();
   TextEditingController jryang = TextEditingController();
   TextEditingController bigo = TextEditingController();
+  TextEditingController cdate = TextEditingController();
   TextEditingController cuser = TextEditingController();
+  TextEditingController mdate = TextEditingController();
   TextEditingController muser = TextEditingController();
 
   bool editMode = false;
 
+  List _dataList = [];
+
+  void _crtDataList() async {
+    var response = await http.get('http://222.96.121.86/read.php');
+
+    setState(() {
+      _dataList = json.decode(response.body);
+    });
+  }
+
   addUpdateData() {
     if (editMode) {
-      // var url = 'http://192.168.0.191/edit.php';
-      var url = 'http://222.96.120.94/edit.php';
+      var url = 'http://222.96.121.86/edit.php';
       http.post(url, body: {
         'ID': widget.list[widget.index]['ID'],
         'COMP': comp.text,
@@ -50,8 +62,7 @@ class _AddEditPageState extends State<AddEditPage> {
         'MUESR': muser.text,
       });
     } else {
-      // var url = 'http://192.168.0.191/add.php';
-      var url = 'http://222.96.120.94/add.php';
+      var url = 'http://222.96.121.86/add.php';
       try {
         http.post(url, body: {
           'COMP': comp.text,
@@ -76,6 +87,7 @@ class _AddEditPageState extends State<AddEditPage> {
 
   @override
   void initState() {
+    _crtDataList();
     super.initState();
     if (widget.index != -1) {
       editMode = true;
@@ -91,6 +103,9 @@ class _AddEditPageState extends State<AddEditPage> {
       sryang.text = widget.list[widget.index]['SRYANG'];
       jryang.text = widget.list[widget.index]['JRYANG'];
       bigo.text = widget.list[widget.index]['BIGO'];
+      cdate.text = widget.list[widget.index]['CDATE'];
+      cuser.text = widget.list[widget.index]['CUSER'];
+      mdate.text = widget.list[widget.index]['MDATE'];
       muser.text = widget.list[widget.index]['MUSER'];
     }
   }
@@ -121,27 +136,83 @@ class _AddEditPageState extends State<AddEditPage> {
                   );
                 },
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Row(
+                  padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('수정한 내용 저장'),
-                      Icon(Icons.save),
+                      Icon(
+                        Icons.save,
+                        size: 14.0,
+                        color: Colors.green[700],
+                      ),
+                      Text(
+                        '저장',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
             ],
             flexibleSpace: PreferredSize(
-              preferredSize: Size.fromHeight(100),
+              preferredSize: Size.fromHeight(160.0),
               child: Center(
-                child: Text('Ggieeeeeeeeek'),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            comp.text,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            '거래처 코드 : ' + c_code.text,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            cdate.text,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            '연락처 : ' + phone.text,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
             bottom: TabBar(
               indicatorColor: Colors.green,
               labelColor: Colors.green,
+              labelPadding: EdgeInsets.all(10.0),
               tabs: [
                 Text('의뢰 개요'),
                 Text('상세정보'),
@@ -176,7 +247,7 @@ class _AddEditPageState extends State<AddEditPage> {
                   child: TextField(
                     controller: j_bunho,
                     decoration: InputDecoration(
-                      labelText: '거래처 코드',
+                      labelText: '전표번호',
                     ),
                   ),
                 ),
@@ -290,8 +361,52 @@ class _AddEditPageState extends State<AddEditPage> {
                 ),
               ],
             ), // 첫번째 탭
-            Center(
-              child: Text('Juice Newton - Angel of the Morning'),
+            SingleChildScrollView(
+              child: SizedBox(
+                width: double.infinity,
+                child:
+                    // 임시 데이터테이블
+                    DataTable(
+                  headingRowHeight: 40.0,
+                  headingRowColor: MaterialStateColor.resolveWith(
+                    (states) {
+                      return Colors.grey.withOpacity(0.5);
+                    },
+                  ),
+                  headingTextStyle: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[800],
+                  ),
+                  dataTextStyle: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.grey[600],
+                  ),
+                  columns: const <DataColumn>[
+                    DataColumn(
+                      label: Text('순번'),
+                    ),
+                    DataColumn(
+                      label: Text('품명'),
+                    ),
+                    DataColumn(
+                      label: Text('수량'),
+                    ),
+                    DataColumn(
+                      label: Text('중량'),
+                    ),
+                  ],
+                  rows: _dataList
+                      .map((item) => DataRow(cells: <DataCell>[
+                            DataCell(Text(item["ID"].toString())),
+                            DataCell(Text('')),
+                            DataCell(Text(item["SRYANG"].toString())),
+                            DataCell(Text(item["JRYANG"] + "kg")),
+                          ]))
+                      .toList(),
+                ),
+                // 임시 데이터테이블
+              ),
             ), // 두번재 탭
           ],
         ),
@@ -299,6 +414,7 @@ class _AddEditPageState extends State<AddEditPage> {
           currentIndex: 0,
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.white,
+          selectedItemColor: Colors.green[700],
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),

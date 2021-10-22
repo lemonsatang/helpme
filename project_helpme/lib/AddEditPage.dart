@@ -134,11 +134,34 @@ class _AddEditPageState extends State<AddEditPage> {
                     children: [
                       Icon(
                         Icons.save,
-                        size: 14.0,
+                        size: 16.0,
                         color: Colors.green[700],
                       ),
                       Text(
-                        '저장',
+                        '수정내용 저장',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {},
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.add,
+                        size: 16.0,
+                        color: Colors.green[700],
+                      ),
+                      Text(
+                        '상세내역 추가',
                         style: TextStyle(
                           fontSize: 12.0,
                         ),
@@ -152,7 +175,7 @@ class _AddEditPageState extends State<AddEditPage> {
               preferredSize: Size.fromHeight(160.0),
               child: Center(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
+                  padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -206,7 +229,7 @@ class _AddEditPageState extends State<AddEditPage> {
               labelPadding: EdgeInsets.all(10.0),
               tabs: [
                 Text('의뢰 개요'),
-                Text('상세정보'),
+                Text('상세내역'),
               ],
             ),
           ),
@@ -355,10 +378,7 @@ class _AddEditPageState extends State<AddEditPage> {
             SingleChildScrollView(
               child: SizedBox(
                 width: double.infinity,
-                child:
-                    // 임시 데이터테이블
-
-                    DataTable(
+                child: DataTable(
                   headingRowHeight: 40.0,
                   headingRowColor: MaterialStateColor.resolveWith(
                     (states) {
@@ -400,15 +420,19 @@ class _AddEditPageState extends State<AddEditPage> {
                       }),
                       cells: <DataCell>[
                         DataCell(Text('$index')),
-                        DataCell(Text('끼요오오오오옷')),
-                        DataCell(Text('끼에에엑')),
+                        DataCell(
+                          Text('끼요오오오오옷'),
+                          onTap: () {},
+                        ),
+                        DataCell(
+                          Text('끼에에엑'),
+                          onTap: () {},
+                        ),
                         DataCell(Text('끄아아악')),
                       ],
                     ),
                   ),
                 ),
-
-                // 임시 데이터테이블
               ),
             ), // 두번재 탭
           ],

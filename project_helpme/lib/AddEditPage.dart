@@ -31,8 +31,7 @@ class _AddEditPageState extends State<AddEditPage> {
 
   addUpdateData() {
     if (editMode) {
-      // var url = 'http://192.168.0.191/edit.php';
-      var url = 'http://221.164.17.167/edit.php';
+      var url = 'http://192.168.0.191/edit.php';
       http.post(url, body: {
         'ID': widget.list[widget.index]['ID'],
         'COMP': comp.text,
@@ -50,8 +49,7 @@ class _AddEditPageState extends State<AddEditPage> {
         'MUESR': muser.text,
       });
     } else {
-      // var url = 'http://192.168.0.191/add.php';
-      var url = 'http://221.164.17.167/add.php';
+      var url = 'http://192.168.0.191/add.php';
       try {
         http.post(url, body: {
           'COMP': comp.text,
@@ -121,12 +119,12 @@ class _AddEditPageState extends State<AddEditPage> {
                   );
                 },
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('수정한 내용 저장'),
+                      Text('저장'),
                       Icon(Icons.save),
                     ],
                   ),
@@ -136,7 +134,11 @@ class _AddEditPageState extends State<AddEditPage> {
             flexibleSpace: PreferredSize(
               preferredSize: Size.fromHeight(100),
               child: Center(
-                child: Text('Ggieeeeeeeeek'),
+                child: Row(
+                  children: [
+                    Text('Ggieeeeeeeeek'),
+                  ],
+                ),
               ),
             ),
             bottom: TabBar(
@@ -176,7 +178,7 @@ class _AddEditPageState extends State<AddEditPage> {
                   child: TextField(
                     controller: j_bunho,
                     decoration: InputDecoration(
-                      labelText: '거래처 코드',
+                      labelText: '전표번호',
                     ),
                   ),
                 ),
@@ -299,6 +301,7 @@ class _AddEditPageState extends State<AddEditPage> {
           currentIndex: 0,
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.white,
+          selectedItemColor: Colors.green[700],
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),

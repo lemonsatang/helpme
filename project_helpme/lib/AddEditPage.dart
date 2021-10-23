@@ -35,7 +35,8 @@ class _AddEditPageState extends State<AddEditPage> {
   List _dataList = [];
 
   void _crtDataList() async {
-    var response = await http.get('http://222.96.121.86/read.php');
+    var response = await http.post('http://222.96.121.86/read_d.php',
+        body: {'ID': widget.list[widget.index]['ID']});
 
     setState(() {
       _dataList = json.decode(response.body);
@@ -88,6 +89,7 @@ class _AddEditPageState extends State<AddEditPage> {
   @override
   void initState() {
     _crtDataList();
+    // _crtDetailList();
     super.initState();
     if (widget.index != -1) {
       editMode = true;
@@ -398,9 +400,9 @@ class _AddEditPageState extends State<AddEditPage> {
                   ],
                   rows: _dataList
                       .map((item) => DataRow(cells: <DataCell>[
-                            DataCell(Text(item["ID"].toString())),
-                            DataCell(Text('')),
-                            DataCell(Text(item["SRYANG"].toString())),
+                            DataCell(Text(item["SEQ"].toString())),
+                            DataCell(Text(item["PDNM"].toString())),
+                            DataCell(Text(item["SRYANG"])),
                             DataCell(Text(item["JRYANG"] + "kg")),
                           ]))
                       .toList(),

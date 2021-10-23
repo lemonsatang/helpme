@@ -35,6 +35,7 @@
 					, mdate = '".$mdate."' 
 					, muser = '".$muser."' 
 					, temp = '".$temp."' 
-					WHERE ID = '".$id."'");
+					WHERE ID = '".$id."'
+					ORDER BY ID DESC");
 
 ?>

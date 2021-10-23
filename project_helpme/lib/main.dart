@@ -45,8 +45,7 @@ class SJMain extends StatefulWidget {
 class _SJMainState extends State<SJMain> {
   Future getData() async {
     try {
-      // var url = 'http://192.168.0.191/read.php';
-      var url = 'http://222.96.120.94/read.php';
+      var url = 'http://222.96.121.86/read.php';
       var response = await http.get(url);
       return json.decode(response.body);
     } catch (e) {
@@ -91,43 +90,72 @@ class _SJMainState extends State<SJMain> {
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
                           List list = snapshot.data;
-                          return ListTile(
-                            leading: InkWell(
-                              child: Icon(Icons.edit),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AddEditPage(
-                                      list: list,
-                                      index: index,
-                                    ),
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AddEditPage(
+                                    list: list,
+                                    index: index,
                                   ),
-                                );
-                              },
-                            ),
-                            title: Text(list[index]['COMP']),
-                            subtitle: Text(list[index]['C_CODE']),
-                            trailing: InkWell(
-                              child: Icon(Icons.delete),
-                              onTap: () {
-                                setState(
-                                  () {
-                                    // var url = 'http://192.168.0.191/delete.php';
-                                    var url = 'http://222.96.120.94/delete.php';
-                                    http.post(
-                                      url,
-                                      body: {
-                                        'id': list[index]['ID'],
+                                ),
+                              );
+                            },
+                            child: Card(
+                              child: ListTile(
+                                tileColor: Colors.white,
+                                title: Text(list[index]['COMP']),
+                                subtitle: Text(list[index]['C_CODE']),
+                                trailing: InkWell(
+                                  child: Icon(Icons.delete),
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('삭제 경고'),
+                                          content: Text('이 아이템을 정말로 삭제하시겠습니까?'),
+                                          actions: [
+                                            TextButton(
+                                              child: Text('삭제'),
+                                              onPressed: () {
+                                                setState(
+                                                  () {
+                                                    var url =
+                                                        'http://222.96.121.86/delete.php';
+                                                    http.post(
+                                                      url,
+                                                      body: {
+                                                        'id': list[index]['ID'],
+                                                      },
+                                                    );
+                                                  },
+                                                );
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: Text('취소'),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        );
                                       },
                                     );
                                   },
-                                );
-                              },
+                                ),
+                              ),
                             ),
                           );
-                        })
-                    : CircularProgressIndicator();
+                        },
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      );
               },
             ),
             Center(
@@ -154,6 +182,7 @@ class _SJMainState extends State<SJMain> {
           currentIndex: 0,
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.white,
+          selectedItemColor: Colors.green[700],
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),

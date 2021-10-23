@@ -91,6 +91,7 @@ class _SJMainState extends State<SJMain> {
                         itemBuilder: (context, index) {
                           List list = snapshot.data;
                           return InkWell(
+                            splashColor: Colors.green,
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -103,10 +104,71 @@ class _SJMainState extends State<SJMain> {
                               );
                             },
                             child: Card(
+                              color: Colors.white,
                               child: ListTile(
-                                tileColor: Colors.white,
-                                title: Text(list[index]['COMP']),
-                                subtitle: Text(list[index]['C_CODE']),
+                                // tileColor: Colors.white,
+                                // title: Text(list[index]['COMP']),
+                                // subtitle: Text(list[index]['C_CODE']),
+                                contentPadding: EdgeInsets.all(15.0),
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '거래처명',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          list[index]['COMP'],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          list[index]['CDATE'],
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                subtitle: Padding(
+                                  padding: EdgeInsets.only(top: 10.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            '등록자 : ' + list[index]['USRNM'],
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        '전표번호 : ' + list[index]['C_CODE'],
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 trailing: InkWell(
                                   child: Icon(Icons.delete),
                                   onTap: () {

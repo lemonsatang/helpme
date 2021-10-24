@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_helpme/AddEditPage.dart';
+import 'gj_AddEditPage.dart';
 import 'dart:convert';
 import 'dart:async';
 
@@ -46,6 +47,16 @@ class _SJMainState extends State<SJMain> {
   Future getData() async {
     try {
       var url = 'http://221.164.17.115/read.php';
+      var response = await http.get(url);
+      return json.decode(response.body);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future getGJ() async {
+    try {
+      var url = 'http://121.158.192.235/gj_read.php';
       var response = await http.get(url);
       return json.decode(response.body);
     } catch (e) {
@@ -221,7 +232,7 @@ class _SJMainState extends State<SJMain> {
               },
             ),
             FutureBuilder(
-              future: getData(),
+              future: getGJ(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasError) print(snapshot.error);
                 return snapshot.hasData
@@ -235,7 +246,7 @@ class _SJMainState extends State<SJMain> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => AddEditPage(
+                                  builder: (context) => gj_AddEditPage(
                                     list: list,
                                     index: index,
                                   ),
@@ -325,7 +336,7 @@ class _SJMainState extends State<SJMain> {
                                                 setState(
                                                   () {
                                                     var url =
-                                                        'http://221.164.17.115/delete.php';
+                                                        'http://121.158.192.235/gj_delete.php';
                                                     http.post(
                                                       url,
                                                       body: {

@@ -45,7 +45,7 @@ class SJMain extends StatefulWidget {
 class _SJMainState extends State<SJMain> {
   Future getData() async {
     try {
-      var url = 'http://222.96.121.86/read.php';
+      var url = 'http://121.158.192.235/read.php';
       var response = await http.get(url);
       return json.decode(response.body);
     } catch (e) {
@@ -57,6 +57,8 @@ class _SJMainState extends State<SJMain> {
   void initState() {
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +188,7 @@ class _SJMainState extends State<SJMain> {
                                                 setState(
                                                   () {
                                                     var url =
-                                                        'http://222.96.121.86/delete.php';
+                                                        'http://121.158.192.235/delete.php';
                                                     http.post(
                                                       url,
                                                       body: {
@@ -220,8 +222,144 @@ class _SJMainState extends State<SJMain> {
                       );
               },
             ),
-            Center(
-              child: Text('사람살려'),
+            FutureBuilder(
+              future: getData(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasError) print(snapshot.error);
+                return snapshot.hasData
+                    ? ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index) {
+                          List list = snapshot.data;
+                          return InkWell(
+                            splashColor: Colors.green,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AddEditPage(
+                                    list: list,
+                                    index: index,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Card(
+                              color: Colors.white,
+                              child: ListTile(
+                                // tileColor: Colors.white,
+                                // title: Text(list[index]['COMP']),
+                                // subtitle: Text(list[index]['C_CODE']),
+                                contentPadding: EdgeInsets.all(15.0),
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '거래처명',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          list[index]['COMP'],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          list[index]['CDATE'],
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                subtitle: Padding(
+                                  padding: EdgeInsets.only(top: 10.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            '등록자 : ' + list[index]['USRNM'],
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        '전표번호 : ' + list[index]['C_CODE'],
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                trailing: InkWell(
+                                  child: Icon(Icons.delete),
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('삭제 경고'),
+                                          content: Text('이 아이템을 정말로 삭제하시겠습니까?'),
+                                          actions: [
+                                            TextButton(
+                                              child: Text('삭제'),
+                                              onPressed: () {
+                                                setState(
+                                                  () {
+                                                    var url =
+                                                        'http://121.158.192.235/delete.php';
+                                                    http.post(
+                                                      url,
+                                                      body: {
+                                                        'id': list[index]['ID'],
+                                                      },
+                                                    );
+                                                  },
+                                                );
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: Text('취소'),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      );
+              },
             ),
           ],
         ),

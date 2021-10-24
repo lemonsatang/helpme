@@ -36,7 +36,7 @@ class _AddEditPageState extends State<AddEditPage> {
   List _dataList = [];
 
   void _crtDataList() async {
-    var response = await http.post('http://222.96.121.86/read_d.php',
+    var response = await http.post('http://121.158.192.235/read_d.php',
         body: {'ID': widget.list[widget.index]['ID']});
 
     setState(() {
@@ -46,7 +46,7 @@ class _AddEditPageState extends State<AddEditPage> {
 
   addUpdateData() {
     if (editMode) {
-      var url = 'http://222.96.121.86/edit.php';
+      var url = 'http://121.158.192.235/edit.php';
       http.post(url, body: {
         'ID': widget.list[widget.index]['ID'],
         'COMP': comp.text,
@@ -64,7 +64,7 @@ class _AddEditPageState extends State<AddEditPage> {
         'MUESR': muser.text,
       });
     } else {
-      var url = 'http://222.96.121.86/add.php';
+      var url = 'http://121.158.192.235/add.php';
       try {
         http.post(url, body: {
           'COMP': comp.text,
@@ -89,10 +89,10 @@ class _AddEditPageState extends State<AddEditPage> {
 
   @override
   void initState() {
-    _crtDataList();
     // _crtDetailList();
     super.initState();
     if (widget.index != -1) {
+      _crtDataList();
       editMode = true;
       comp.text = widget.list[widget.index]['COMP'];
       c_code.text = widget.list[widget.index]['C_CODE'];

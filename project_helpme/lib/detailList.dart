@@ -186,16 +186,7 @@ class _detailListState extends State<detailList> {
               child: TextField(
                 controller: pdcod,
                 decoration: InputDecoration(
-                  labelText: '뚜뚜뚜뚜',
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: seq,
-                decoration: InputDecoration(
-                  labelText: '따라라라라라',
+                  labelText: '상품번호',
                 ),
               ),
             ),
@@ -204,7 +195,7 @@ class _detailListState extends State<detailList> {
               child: TextField(
                 controller: comp,
                 decoration: InputDecoration(
-                  labelText: '뚯뚜뚜뚯',
+                  labelText: '거래처명',
                 ),
               ),
             ),
@@ -213,7 +204,7 @@ class _detailListState extends State<detailList> {
               child: TextField(
                 controller: c_code,
                 decoration: InputDecoration(
-                  labelText: '따라따라라라라',
+                  labelText: '거래처 코드',
                 ),
               ),
             ),
@@ -222,7 +213,7 @@ class _detailListState extends State<detailList> {
               child: TextField(
                 controller: pdnm,
                 decoration: InputDecoration(
-                  labelText: '따라라',
+                  labelText: '상품명',
                 ),
               ),
             ),
@@ -231,7 +222,7 @@ class _detailListState extends State<detailList> {
               child: TextField(
                 controller: maker,
                 decoration: InputDecoration(
-                  labelText: '뚜루뚜뚜루뚜',
+                  labelText: '메이커',
                 ),
               ),
             ),
@@ -240,7 +231,7 @@ class _detailListState extends State<detailList> {
               child: TextField(
                 controller: jaejil,
                 decoration: InputDecoration(
-                  labelText: '뚜루루룬',
+                  labelText: '재질',
                 ),
               ),
             ),
@@ -249,7 +240,7 @@ class _detailListState extends State<detailList> {
               child: TextField(
                 controller: size,
                 decoration: InputDecoration(
-                  labelText: '빠라빠빠라빠',
+                  labelText: '사이즈',
                 ),
               ),
             ),
@@ -258,7 +249,7 @@ class _detailListState extends State<detailList> {
               child: TextField(
                 controller: choolgo,
                 decoration: InputDecoration(
-                  labelText: '뚜뚜뚯',
+                  labelText: '출고길이',
                 ),
               ),
             ),
@@ -276,7 +267,7 @@ class _detailListState extends State<detailList> {
               child: TextField(
                 controller: unit,
                 decoration: InputDecoration(
-                  labelText: '따랄라라랄라',
+                  labelText: '단위',
                 ),
               ),
             ),
@@ -285,7 +276,7 @@ class _detailListState extends State<detailList> {
               child: TextField(
                 controller: u_jryang,
                 decoration: InputDecoration(
-                  labelText: '뚜뚜뚠',
+                  labelText: '단위중량',
                 ),
               ),
             ),
@@ -294,7 +285,7 @@ class _detailListState extends State<detailList> {
               child: TextField(
                 controller: bigo,
                 decoration: InputDecoration(
-                  labelText: '나난나나난나',
+                  labelText: '비고',
                 ),
               ),
             ),

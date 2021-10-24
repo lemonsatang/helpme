@@ -6,17 +6,121 @@ import 'dart:convert';
 import 'dart:async';
 
 class detailList extends StatefulWidget {
-  final List list;
-  detailList({required this.list});
+  final List d_list;
+  final int d_index;
+  detailList({required this.d_list, required this.d_index});
 
   @override
   _detailListState createState() => _detailListState();
 }
 
 class _detailListState extends State<detailList> {
+  TextEditingController pdcod = TextEditingController();
+  TextEditingController id = TextEditingController();
+  TextEditingController seq = TextEditingController();
+  TextEditingController comp = TextEditingController();
+  TextEditingController c_code = TextEditingController();
+  TextEditingController pdnm = TextEditingController();
+  TextEditingController maker = TextEditingController();
+  TextEditingController jaejil = TextEditingController();
+  TextEditingController size = TextEditingController();
+  TextEditingController choolgo = TextEditingController();
+  TextEditingController sryang = TextEditingController();
+  TextEditingController unit = TextEditingController();
+  TextEditingController u_jryang = TextEditingController();
+  TextEditingController jryang = TextEditingController();
+  TextEditingController bigo = TextEditingController();
+  TextEditingController cdate = TextEditingController();
+  TextEditingController cuser = TextEditingController();
+  TextEditingController mdate = TextEditingController();
+  TextEditingController muser = TextEditingController();
+
+  bool editMode = false;
+
+  List _detailList = [];
+
   @override
   void initState() {
     super.initState();
+    if (widget.d_index != -1) {
+      _crtDetailList();
+      editMode = true;
+      pdcod.text = widget.d_list[widget.d_index]['PDCOD'];
+      seq.text = widget.d_list[widget.d_index]['SEQ'];
+      comp.text = widget.d_list[widget.d_index]['COMP'];
+      c_code.text = widget.d_list[widget.d_index]['C_CODE'];
+      pdnm.text = widget.d_list[widget.d_index]['PDNM'];
+      maker.text = widget.d_list[widget.d_index]['MAKER'];
+      jaejil.text = widget.d_list[widget.d_index]['JAEJIL'];
+      size.text = widget.d_list[widget.d_index]['SIZE'];
+      choolgo.text = widget.d_list[widget.d_index]['CHOOLGO'];
+      sryang.text = widget.d_list[widget.d_index]['SRYANG'];
+      unit.text = widget.d_list[widget.d_index]['UNIT'];
+      u_jryang.text = widget.d_list[widget.d_index]['U_JRYANG'];
+      jryang.text = widget.d_list[widget.d_index]['JRYANG'];
+      bigo.text = widget.d_list[widget.d_index]['BIGO'];
+      cdate.text = widget.d_list[widget.d_index]['CDATE'];
+      mdate.text = widget.d_list[widget.d_index]['MDATE'];
+      cuser.text = widget.d_list[widget.d_index]['CUSER'];
+      muser.text = widget.d_list[widget.d_index]['MUSER'];
+      print(pdcod.text);
+    }
+  }
+
+  void _crtDetailList() async {
+    var response = await http.post('http://221.164.17.115/read_d.php',
+        body: {'ID': widget.d_list[widget.d_index]['ID']});
+
+    setState(() {
+      _detailList = json.decode(response.body);
+    });
+  }
+
+  addUpdateDetail() {
+    if (editMode) {
+      var url = 'http://221.164.17.115/edit_d.php';
+      http.post(url, body: {
+        'ID': widget.d_list[widget.d_index]['ID'],
+        'PDCOD': pdcod.text,
+        'SEQ': seq.text,
+        'COMP': comp.text,
+        'C_CODE': c_code.text,
+        'PDNM': pdnm.text,
+        'MAKER': maker.text,
+        'JAEJIL': jaejil.text,
+        'SIZE': size.text,
+        'CHOOLGO': choolgo.text,
+        'SRYANG': sryang.text,
+        'UNIT': unit.text,
+        'U_JRYANG': u_jryang.text,
+        'JRYANG': jryang.text,
+        'BIGO': bigo.text,
+        'MUSER': muser.text,
+      });
+    } else {
+      var url = 'http://221.164.17.115/add_d.php';
+      try {
+        http.post(url, body: {
+          'PDCOD': pdcod.text,
+          'SEQ': seq.text,
+          'COMP': comp.text,
+          'C_CODE': c_code.text,
+          'PDNM': pdnm.text,
+          'MAKER': maker.text,
+          'JAEJIL': jaejil.text,
+          'SIZE': size.text,
+          'CHOOLGO': choolgo.text,
+          'SRYANG': sryang.text,
+          'UNIT': unit.text,
+          'U_JRYANG': u_jryang.text,
+          'JRYANG': jryang.text,
+          'BIGO': bigo.text,
+          'CUSER': muser.text,
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
   }
 
   @override
@@ -24,7 +128,7 @@ class _detailListState extends State<detailList> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text("Second Route"),
+        title: Text('DetailItem'),
         actions: [
           InkWell(
             onTap: () {},
@@ -37,7 +141,7 @@ class _detailListState extends State<detailList> {
                   Icon(
                     Icons.save,
                     size: 16.0,
-                    color: Colors.green[800],
+                    color: Colors.green[700],
                   ),
                   Text(
                     '수정내용 저장',
@@ -60,7 +164,7 @@ class _detailListState extends State<detailList> {
                   Icon(
                     Icons.delete,
                     size: 16.0,
-                    color: Colors.green[800],
+                    color: Colors.green[700],
                   ),
                   Text(
                     '삭제',
@@ -74,8 +178,155 @@ class _detailListState extends State<detailList> {
           ),
         ],
       ),
-      body: ListView(
-        children: [],
+      body: Center(
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: pdcod,
+                decoration: InputDecoration(
+                  labelText: '뚜뚜뚜뚜',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: seq,
+                decoration: InputDecoration(
+                  labelText: '따라라라라라',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: comp,
+                decoration: InputDecoration(
+                  labelText: '뚯뚜뚜뚯',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: c_code,
+                decoration: InputDecoration(
+                  labelText: '따라따라라라라',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: pdnm,
+                decoration: InputDecoration(
+                  labelText: '따라라',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: maker,
+                decoration: InputDecoration(
+                  labelText: '뚜루뚜뚜루뚜',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: jaejil,
+                decoration: InputDecoration(
+                  labelText: '뚜루루룬',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: size,
+                decoration: InputDecoration(
+                  labelText: '빠라빠빠라빠',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: choolgo,
+                decoration: InputDecoration(
+                  labelText: '뚜뚜뚯',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: sryang,
+                decoration: InputDecoration(
+                  labelText: '수량',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: unit,
+                decoration: InputDecoration(
+                  labelText: '따랄라라랄라',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: u_jryang,
+                decoration: InputDecoration(
+                  labelText: '뚜뚜뚠',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: bigo,
+                decoration: InputDecoration(
+                  labelText: '나난나나난나',
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green[400],
+                ),
+                onPressed: () {
+                  setState(
+                    () {
+                      addUpdateDetail();
+                    },
+                  );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NKFlutter(),
+                    ),
+                  );
+                },
+                child: Text(
+                  editMode ? '수정된 내용 저장' : '의뢰 추가하기',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

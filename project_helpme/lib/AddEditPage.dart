@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:project_helpme/main.dart';
 import 'dart:convert';
 import 'package:project_helpme/detailList.dart';
+import 'dart:async';
 
 class AddEditPage extends StatefulWidget {
   final List list;
@@ -431,7 +432,10 @@ class _AddEditPageState extends State<AddEditPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => detailList(list: []),
+                                    builder: (context) => detailList(
+                                      d_list: _dataList,
+                                      d_index: 0,
+                                    ),
                                   ),
                                 );
                               },

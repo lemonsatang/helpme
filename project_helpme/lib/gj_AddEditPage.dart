@@ -431,7 +431,10 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => detailList(list: []),
+                                    builder: (context) => detailList(
+                                      d_list: [],
+                                      d_index: 0,
+                                    ),
                                   ),
                                 );
                               },

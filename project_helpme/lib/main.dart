@@ -45,7 +45,7 @@ class SJMain extends StatefulWidget {
 class _SJMainState extends State<SJMain> {
   Future getData() async {
     try {
-      var url = 'http://121.158.192.235/read.php';
+      var url = 'http://221.164.17.115/read.php';
       var response = await http.get(url);
       return json.decode(response.body);
     } catch (e) {
@@ -57,8 +57,6 @@ class _SJMainState extends State<SJMain> {
   void initState() {
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +186,7 @@ class _SJMainState extends State<SJMain> {
                                                 setState(
                                                   () {
                                                     var url =
-                                                        'http://121.158.192.235/delete.php';
+                                                        'http://221.164.17.115/delete.php';
                                                     http.post(
                                                       url,
                                                       body: {
@@ -327,7 +325,7 @@ class _SJMainState extends State<SJMain> {
                                                 setState(
                                                   () {
                                                     var url =
-                                                        'http://121.158.192.235/delete.php';
+                                                        'http://221.164.17.115/delete.php';
                                                     http.post(
                                                       url,
                                                       body: {
@@ -367,14 +365,44 @@ class _SJMainState extends State<SJMain> {
           backgroundColor: Colors.green[300],
           child: Icon(Icons.add),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AddEditPage(
-                  list: [],
-                  index: -1,
-                ),
-              ),
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('아이템 추가'),
+                  content: Text('어느 테이블에 아이템을 추가하시겠습니까?'),
+                  actions: [
+                    TextButton(
+                      child: Text('수주'),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddEditPage(
+                              list: [],
+                              index: -1,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    TextButton(
+                      child: Text('견적'),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddEditPage(
+                              list: [],
+                              index: -1,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                );
+              },
             );
           },
         ),

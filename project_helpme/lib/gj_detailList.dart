@@ -5,16 +5,16 @@ import 'package:project_helpme/AddEditPage.dart';
 import 'dart:convert';
 import 'dart:async';
 
-class detailList extends StatefulWidget {
+class detailListGJ extends StatefulWidget {
   final List d_list;
   final int d_index;
-  detailList({required this.d_list, required this.d_index});
+  detailListGJ({required this.d_list, required this.d_index});
 
   @override
-  _detailListState createState() => _detailListState();
+  _detailListGJState createState() => _detailListGJState();
 }
 
-class _detailListState extends State<detailList> {
+class _detailListGJState extends State<detailListGJ> {
   TextEditingController pdcod = TextEditingController();
   TextEditingController id = TextEditingController();
   TextEditingController seq = TextEditingController();
@@ -123,6 +123,15 @@ class _detailListState extends State<detailList> {
     }
   }
 
+  deleteData() {
+    var url = 'http://121.158.192.235/gj_delete_d.php';
+    http.post(url, body: {
+      'ID': widget.d_list[widget.d_index]['ID'],
+      'PDCOD': pdcod.text,
+      'SEQ': seq.text,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,7 +163,19 @@ class _detailListState extends State<detailList> {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              setState(
+                () {
+                  deleteData();
+                },
+              );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NKFlutter(),
+                ),
+              );
+            },
             child: Padding(
               padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
               child: Column(

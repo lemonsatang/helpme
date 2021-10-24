@@ -79,7 +79,7 @@ class _SJMainState extends State<SJMain> {
           child: AppBar(
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
-            title: Text('임시제목'),
+            title: Text('NK플러터 샘플'),
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(60),
               child: TabBar(
@@ -197,7 +197,7 @@ class _SJMainState extends State<SJMain> {
                                                 setState(
                                                   () {
                                                     var url =
-                                                        'http://221.164.17.115/delete.php';
+                                                        'http://121.158.192.235/delete.php';
                                                     http.post(
                                                       url,
                                                       body: {
@@ -336,7 +336,7 @@ class _SJMainState extends State<SJMain> {
                                                 setState(
                                                   () {
                                                     var url =
-                                                        'http://221.164.17.115/gj_delete.php';
+                                                        'http://121.158.192.235/gj_delete.php';
                                                     http.post(
                                                       url,
                                                       body: {

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:project_helpme/main.dart';
 import 'dart:convert';
 import 'package:project_helpme/detailList.dart';
+import 'gj_detailList.dart';
 
 class gj_AddEditPage extends StatefulWidget {
   final List list;
@@ -33,14 +34,14 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
 
   bool editMode = false;
 
-  List _dataList = [];
+  List _dataListGJ = [];
 
-  void _crtDataList() async {
+  void _crtDataListGJ() async {
     var response = await http.post('http://121.158.192.235/gj_read_d.php',
         body: {'ID': widget.list[widget.index]['ID']});
 
     setState(() {
-      _dataList = json.decode(response.body);
+      _dataListGJ = json.decode(response.body);
     });
   }
 
@@ -89,10 +90,9 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
 
   @override
   void initState() {
-    // _crtDetailList();
     super.initState();
     if (widget.index != -1) {
-      _crtDataList();
+      _crtDataListGJ();
       editMode = true;
       comp.text = widget.list[widget.index]['COMP'];
       c_code.text = widget.list[widget.index]['C_CODE'];
@@ -123,6 +123,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
           child: AppBar(
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
+            title: Text('견적 상세내역'),
             actions: [
               InkWell(
                 onTap: () {
@@ -422,7 +423,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                       label: Text('중량'),
                     ),
                   ],
-                  rows: _dataList
+                  rows: _dataListGJ
                       .map((item) => DataRow(cells: <DataCell>[
                             DataCell(Text(item["SEQ"].toString())),
                             DataCell(
@@ -431,8 +432,8 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => detailList(
-                                      d_list: [],
+                                    builder: (context) => detailListGJ(
+                                      d_list: _dataListGJ,
                                       d_index: 0,
                                     ),
                                   ),

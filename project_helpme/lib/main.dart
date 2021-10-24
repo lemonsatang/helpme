@@ -336,7 +336,7 @@ class _SJMainState extends State<SJMain> {
                                                 setState(
                                                   () {
                                                     var url =
-                                                        'http://121.158.192.235/gj_delete.php';
+                                                        'http://221.164.17.115/gj_delete.php';
                                                     http.post(
                                                       url,
                                                       body: {

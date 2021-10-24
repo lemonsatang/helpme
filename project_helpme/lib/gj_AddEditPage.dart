@@ -64,7 +64,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
         'MUESR': muser.text,
       });
     } else {
-      var url = 'http://121.158.192.235/add.php';
+      var url = 'http://121.158.192.235/gj_add.php';
       try {
         http.post(url, body: {
           'COMP': comp.text,

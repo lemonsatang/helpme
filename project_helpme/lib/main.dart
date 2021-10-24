@@ -46,7 +46,7 @@ class SJMain extends StatefulWidget {
 class _SJMainState extends State<SJMain> {
   Future getData() async {
     try {
-      var url = 'http://221.164.17.115/read.php';
+      var url = 'http://121.158.192.235/read.php';
       var response = await http.get(url);
       return json.decode(response.body);
     } catch (e) {
@@ -403,7 +403,7 @@ class _SJMainState extends State<SJMain> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AddEditPage(
+                            builder: (context) => gj_AddEditPage(
                               list: [],
                               index: -1,
                             ),

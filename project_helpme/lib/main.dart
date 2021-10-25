@@ -87,6 +87,7 @@ class _SJMainState extends State<SJMain> {
               padding: EdgeInsets.fromLTRB(20.0, 80.0, 20.0, 0),
               child: TextField(
                 autofocus: false,
+                maxLines: 1,
                 controller: searchText,
                 decoration: InputDecoration(
                   filled: true,
@@ -98,15 +99,11 @@ class _SJMainState extends State<SJMain> {
                     ),
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.teal,
-                  ),
                   suffixIcon: IconButton(
-                    onPressed: searchText.clear,
+                    onPressed: () {},
                     icon: Icon(
-                      Icons.clear,
-                      color: Colors.pink[700],
+                      Icons.search_rounded,
+                      color: Colors.teal,
                     ),
                   ),
                   hintText: '검색어 입력...',

@@ -151,7 +151,7 @@ class _detailListState extends State<detailList> {
                     color: Colors.green[700],
                   ),
                   Text(
-                    '수정내용 저장',
+                    editMode ? '저장' : '추가',
                     style: TextStyle(
                       fontSize: 12.0,
                     ),
@@ -160,29 +160,31 @@ class _detailListState extends State<detailList> {
               ),
             ),
           ),
-          InkWell(
-            onTap: () {},
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.delete,
-                    size: 16.0,
-                    color: Colors.green[700],
-                  ),
-                  Text(
-                    '삭제',
-                    style: TextStyle(
-                      fontSize: 12.0,
+          editMode
+              ? InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.delete,
+                          size: 16.0,
+                          color: Colors.green[700],
+                        ),
+                        Text(
+                          '삭제',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
+                )
+              : Container(),
         ],
       ),
       body: Center(

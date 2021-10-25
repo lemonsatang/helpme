@@ -18,5 +18,5 @@
 	$cuser = $_POST['CUSER'];
 	$temp = $_POST['TEMP'];
 
-	$link->query("INSERT INTO gj_m(COMP,C_CODE,J_BUNHO,PHONE,FAX,USRNM,I_JOGUN,J_JOGUN,GUNSOO,SRYANG,JRYANG,BIGO,CDATE,CUSER,TEMP)
+	$link->query("INSERT INTO kj_m(COMP,C_CODE,J_BUNHO,PHONE,FAX,USRNM,I_JOGUN,J_JOGUN,GUNSOO,SRYANG,JRYANG,BIGO,CDATE,CUSER,TEMP)
 	VALUES('".$comp."','".$c_code."','".$j_bunho."','".$phone."','".$fax."','".$usrnm."','".$i_jogun."','".$j_jogun."','".$gunsoo."','".$sryang."','".$jryang."','".$bigo."','".$cdate."','".$cuser."','".$temp."')");

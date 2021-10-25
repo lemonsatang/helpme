@@ -5,21 +5,21 @@ import 'package:project_helpme/AddEditPage.dart';
 import 'dart:convert';
 import 'dart:async';
 
-class detailListGJ extends StatefulWidget {
+class detailListKJ extends StatefulWidget {
   final List d_list;
   final int d_index;
   final int d_id;
-  detailListGJ({
+  detailListKJ({
     required this.d_list,
     required this.d_index,
     required this.d_id,
   });
 
   @override
-  _detailListGJState createState() => _detailListGJState();
+  _detailListKJState createState() => _detailListKJState();
 }
 
-class _detailListGJState extends State<detailListGJ> {
+class _detailListKJState extends State<detailListKJ> {
   TextEditingController pdcod = TextEditingController();
   TextEditingController id = TextEditingController();
   TextEditingController seq = TextEditingController();
@@ -73,7 +73,7 @@ class _detailListGJState extends State<detailListGJ> {
   }
 
   void _crtDetailList() async {
-    var response = await http.post('${root_url}/read_d.php',
+    var response = await http.post('${root_url}/kj_read_d.php',
         body: {'ID': widget.d_list[widget.d_index]['ID']});
 
     setState(() {
@@ -129,7 +129,7 @@ class _detailListGJState extends State<detailListGJ> {
   }
 
   deleteData() {
-    var url = '${root_url}/gj_delete_d.php';
+    var url = '${root_url}/kj_delete_d.php';
     http.post(url, body: {
       'ID': widget.d_list[widget.d_index]['ID'],
       'PDCOD': pdcod.text,
@@ -174,11 +174,8 @@ class _detailListGJState extends State<detailListGJ> {
                   deleteData();
                 },
               );
-              Navigator.push(
+              Navigator.pop(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => NKFlutter(),
-                ),
               );
             },
             child: Padding(
@@ -327,11 +324,8 @@ class _detailListGJState extends State<detailListGJ> {
                       addUpdateDetail();
                     },
                   );
-                  Navigator.push(
+                  Navigator.pop(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => NKFlutter(),
-                    ),
                   );
                 },
                 child: Text(

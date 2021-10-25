@@ -4,7 +4,7 @@ include 'database.php';
 
     $id = $_POST['ID'];
 
-	$query = $link->query("SELECT * FROM geonjuck_d where ID = '".$id."' ORDER BY ID DESC" );
+	$query = $link->query("SELECT * FROM kj_d where ID = '".$id."' ORDER BY ID DESC" );
 	$result = array();
 
 	while ($rowData = $query->fetch_assoc()) {

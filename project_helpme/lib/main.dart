@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_helpme/AddEditPage.dart';
-import 'gj_AddEditPage.dart';
+import 'package:project_helpme/kj_AddEditPage.dart';
 import 'dart:convert';
 import 'dart:async';
 
@@ -38,7 +38,6 @@ final List<Tab> Tabs = <Tab>[
 
 class SJMain extends StatefulWidget {
   const SJMain({Key? key, required this.title}) : super(key: key);
-
   final String title;
 
   @override
@@ -58,13 +57,15 @@ class _SJMainState extends State<SJMain> {
 
   Future getGJ() async {
     try {
-      var url = '${root_url}/gj_read.php';
+      var url = '${root_url}/kj_read.php';
       var response = await http.get(url);
       return json.decode(response.body);
     } catch (e) {
       print(e);
     }
   }
+
+  TextEditingController searchText = TextEditingController();
 
   @override
   void initState() {
@@ -79,14 +80,47 @@ class _SJMainState extends State<SJMain> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(160),
           child: AppBar(
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
+            backgroundColor: Colors.green,
+            foregroundColor: Colors.white,
             title: Text('NK플러터 샘플'),
+            flexibleSpace: Padding(
+              padding: EdgeInsets.fromLTRB(20.0, 80.0, 20.0, 0),
+              child: TextField(
+                autofocus: false,
+                controller: searchText,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.teal,
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: searchText.clear,
+                    icon: Icon(
+                      Icons.clear,
+                      color: Colors.pink[700],
+                    ),
+                  ),
+                  hintText: '검색어 입력...',
+                ),
+                style: TextStyle(
+                  color: Colors.green[800],
+                ),
+              ),
+            ),
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(60),
               child: TabBar(
-                indicatorColor: Colors.green,
-                labelColor: Colors.green,
+                indicatorColor: Colors.yellow[100],
+                labelColor: Colors.white,
                 tabs: Tabs,
               ),
             ),
@@ -248,7 +282,7 @@ class _SJMainState extends State<SJMain> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => gj_AddEditPage(
+                                  builder: (context) => kj_AddEditPage(
                                     list: list,
                                     index: index,
                                   ),
@@ -258,9 +292,6 @@ class _SJMainState extends State<SJMain> {
                             child: Card(
                               color: Colors.white,
                               child: ListTile(
-                                // tileColor: Colors.white,
-                                // title: Text(list[index]['COMP']),
-                                // subtitle: Text(list[index]['C_CODE']),
                                 contentPadding: EdgeInsets.all(15.0),
                                 title: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -338,7 +369,7 @@ class _SJMainState extends State<SJMain> {
                                                 setState(
                                                   () {
                                                     var url =
-                                                        '${root_url}/gj_delete.php';
+                                                        '${root_url}/kj_delete.php';
                                                     http.post(
                                                       url,
                                                       body: {
@@ -405,7 +436,7 @@ class _SJMainState extends State<SJMain> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => gj_AddEditPage(
+                            builder: (context) => kj_AddEditPage(
                               list: [],
                               index: -1,
                             ),

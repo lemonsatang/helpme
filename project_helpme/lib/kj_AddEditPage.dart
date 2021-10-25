@@ -4,29 +4,38 @@ import 'package:project_helpme/main.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:project_helpme/detailList.dart';
-import 'package:project_helpme/gj_detailList.dart';
+import 'package:project_helpme/kj_detailList.dart';
 
-class gj_AddEditPage extends StatefulWidget {
+class kj_AddEditPage extends StatefulWidget {
   final List list;
   final int index;
-  gj_AddEditPage({required this.list, required this.index});
+  kj_AddEditPage({required this.list, required this.index});
 
   @override
-  _gj_AddEditPageState createState() => _gj_AddEditPageState();
+  _kj_AddEditPageState createState() => _kj_AddEditPageState();
 }
 
-class _gj_AddEditPageState extends State<gj_AddEditPage> {
-  TextEditingController comp = TextEditingController();
-  TextEditingController c_code = TextEditingController();
+class _kj_AddEditPageState extends State<kj_AddEditPage> {
   TextEditingController j_bunho = TextEditingController();
+  TextEditingController kj_ilja = TextEditingController();
+  TextEditingController c_code = TextEditingController();
+  TextEditingController comp = TextEditingController();
+  TextEditingController projno = TextEditingController();
+  TextEditingController soosin = TextEditingController();
+  TextEditingController chamjo = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController fax = TextEditingController();
   TextEditingController usrnm = TextEditingController();
   TextEditingController i_jogun = TextEditingController();
   TextEditingController j_jogun = TextEditingController();
+  TextEditingController nabgi = TextEditingController();
+  TextEditingController yoohyo = TextEditingController();
   TextEditingController gunsoo = TextEditingController();
   TextEditingController sryang = TextEditingController();
   TextEditingController jryang = TextEditingController();
+  TextEditingController gonggup = TextEditingController();
+  TextEditingController booga = TextEditingController();
+  TextEditingController hapgye = TextEditingController();
   TextEditingController bigo = TextEditingController();
   TextEditingController cdate = TextEditingController();
   TextEditingController cuser = TextEditingController();
@@ -35,53 +44,71 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
 
   bool editMode = false;
 
-  List _dataListGJ = [];
+  List _dataListKJ = [];
 
-  void _crtDataListGJ() async {
-    var response = await http.post('${root_url}/gj_read_d.php',
+  void _crtDataListKJ() async {
+    var response = await http.post('${root_url}/kj_read_d.php',
         body: {'ID': widget.list[widget.index]['ID']});
 
     setState(() {
-      _dataListGJ = json.decode(response.body);
+      _dataListKJ = json.decode(response.body);
     });
   }
 
-  addUpdateDataGJ() {
+  addUpdateDataKJ() {
     if (editMode) {
-      var url = '${root_url}/gj_edit.php';
+      var url = '${root_url}/kj_edit.php';
       http.post(url, body: {
         'ID': widget.list[widget.index]['ID'],
-        'COMP': comp.text,
-        'C_CODE': c_code.text,
         'J_BUNHO': j_bunho.text,
+        'KJ_ILJA': kj_ilja.text,
+        'C_CODE': c_code.text,
+        'COMP': comp.text,
+        'PROJNO': projno.text,
+        'SOOSIN': soosin.text,
+        'CHAMJO': chamjo.text,
         'PHONE': phone.text,
         'FAX': fax.text,
         'USRNM': usrnm.text,
         'I_JOGUN': i_jogun.text,
         'J_JOGUN': j_jogun.text,
+        'NABGI': nabgi.text,
+        'YOOHYO': yoohyo.text,
         'GUNSOO': gunsoo.text,
         'SRYANG': sryang.text,
         'JRYANG': jryang.text,
+        'GONGGUP': gonggup.text,
+        'BOOGA': booga.text,
+        'HAPGYE': hapgye.text,
         'BIGO': bigo.text,
         'MUESR': muser.text,
       });
     } else {
-      var url = '${root_url}/gj_add.php';
+      var url = '${root_url}/kj_add.php';
       try {
         http.post(url, body: {
-          'COMP': comp.text,
-          'C_CODE': c_code.text,
           'J_BUNHO': j_bunho.text,
+          'KJ_ILJA': kj_ilja.text,
+          'C_CODE': c_code.text,
+          'COMP': comp.text,
+          'PROJNO': projno.text,
+          'SOOSIN': soosin.text,
+          'CHAMJO': chamjo.text,
           'PHONE': phone.text,
           'FAX': fax.text,
           'USRNM': usrnm.text,
           'I_JOGUN': i_jogun.text,
           'J_JOGUN': j_jogun.text,
+          'NABGI': nabgi.text,
+          'YOOHYO': yoohyo.text,
           'GUNSOO': gunsoo.text,
           'SRYANG': sryang.text,
           'JRYANG': jryang.text,
+          'GONGGUP': gonggup.text,
+          'BOOGA': booga.text,
+          'HAPGYE': hapgye.text,
           'BIGO': bigo.text,
-          'CUSER': cuser.text,
+          'CUESR': cuser.text,
         });
       } catch (e) {
         print(e);
@@ -93,19 +120,28 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
   void initState() {
     super.initState();
     if (widget.index != -1) {
-      _crtDataListGJ();
+      _crtDataListKJ();
       editMode = true;
-      comp.text = widget.list[widget.index]['COMP'];
-      c_code.text = widget.list[widget.index]['C_CODE'];
       j_bunho.text = widget.list[widget.index]['J_BUNHO'];
+      kj_ilja.text = widget.list[widget.index]['KJ_ILJA'];
+      c_code.text = widget.list[widget.index]['C_CODE'];
+      comp.text = widget.list[widget.index]['COMP'];
+      projno.text = widget.list[widget.index]['PROJNO'];
+      soosin.text = widget.list[widget.index]['SOOSIN'];
+      chamjo.text = widget.list[widget.index]['CHAMJO'];
       phone.text = widget.list[widget.index]['PHONE'];
       fax.text = widget.list[widget.index]['FAX'];
       usrnm.text = widget.list[widget.index]['USRNM'];
       i_jogun.text = widget.list[widget.index]['I_JOGUN'];
       j_jogun.text = widget.list[widget.index]['J_JOGUN'];
+      nabgi.text = widget.list[widget.index]['NABGI'];
+      yoohyo.text = widget.list[widget.index]['YOOHYO'];
       gunsoo.text = widget.list[widget.index]['GUNSOO'];
       sryang.text = widget.list[widget.index]['SRYANG'];
       jryang.text = widget.list[widget.index]['JRYANG'];
+      gonggup.text = widget.list[widget.index]['GONGGUP'];
+      booga.text = widget.list[widget.index]['BOOGA'];
+      hapgye.text = widget.list[widget.index]['HAPGYE'];
       bigo.text = widget.list[widget.index]['BIGO'];
       cdate.text = widget.list[widget.index]['CDATE'];
       cuser.text = widget.list[widget.index]['CUSER'];
@@ -130,7 +166,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                 onTap: () {
                   setState(
                     () {
-                      addUpdateDataGJ();
+                      addUpdateDataKJ();
                     },
                   );
                   Navigator.push(
@@ -165,7 +201,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                 onTap: () {
                   setState(
                     () {
-                      addUpdateDataGJ();
+                      addUpdateDataKJ();
                     },
                   );
                   Navigator.push(
@@ -271,10 +307,20 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
-                    controller: comp,
+                    controller: j_bunho,
                     maxLength: 25,
                     decoration: InputDecoration(
-                      labelText: '거래처명',
+                      labelText: '전표번호',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: TextField(
+                    controller: kj_ilja,
+                    maxLength: 10,
+                    decoration: InputDecoration(
+                      labelText: '견적일자',
                     ),
                   ),
                 ),
@@ -285,16 +331,6 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                     maxLength: 25,
                     decoration: InputDecoration(
                       labelText: '거래처 코드',
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                  child: TextField(
-                    controller: j_bunho,
-                    maxLength: 25,
-                    decoration: InputDecoration(
-                      labelText: '전표번호',
                     ),
                   ),
                 ),
@@ -397,7 +433,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                     onPressed: () {
                       setState(
                         () {
-                          addUpdateDataGJ();
+                          addUpdateDataKJ();
                         },
                       );
                       Navigator.push(
@@ -452,7 +488,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                       label: Text('중량'),
                     ),
                   ],
-                  rows: _dataListGJ
+                  rows: _dataListKJ
                       .map((item) => DataRow(cells: <DataCell>[
                             DataCell(Text(item["SEQ"].toString())),
                             DataCell(
@@ -461,8 +497,8 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => detailListGJ(
-                                      d_list: _dataListGJ,
+                                    builder: (context) => detailListKJ(
+                                      d_list: _dataListKJ,
                                       d_index: 0,
                                       d_id: int.parse(item["ID"]),
                                     ),

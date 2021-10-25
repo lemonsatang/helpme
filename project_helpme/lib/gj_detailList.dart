@@ -8,7 +8,12 @@ import 'dart:async';
 class detailListGJ extends StatefulWidget {
   final List d_list;
   final int d_index;
-  detailListGJ({required this.d_list, required this.d_index});
+  final int d_id;
+  detailListGJ({
+    required this.d_list,
+    required this.d_index,
+    required this.d_id,
+  });
 
   @override
   _detailListGJState createState() => _detailListGJState();
@@ -68,7 +73,7 @@ class _detailListGJState extends State<detailListGJ> {
   }
 
   void _crtDetailList() async {
-    var response = await http.post('http://121.158.192.235/read_d.php',
+    var response = await http.post('${root_url}/read_d.php',
         body: {'ID': widget.d_list[widget.d_index]['ID']});
 
     setState(() {
@@ -78,7 +83,7 @@ class _detailListGJState extends State<detailListGJ> {
 
   addUpdateDetail() {
     if (editMode) {
-      var url = 'http://121.158.192.235/edit_d.php';
+      var url = '${root_url}/edit_d.php';
       http.post(url, body: {
         'ID': widget.d_list[widget.d_index]['ID'],
         'PDCOD': pdcod.text,
@@ -98,7 +103,7 @@ class _detailListGJState extends State<detailListGJ> {
         'MUSER': muser.text,
       });
     } else {
-      var url = 'http://http://121.158.192.235/add_d.php';
+      var url = '${root_url}/add_d.php';
       try {
         http.post(url, body: {
           'PDCOD': pdcod.text,
@@ -124,7 +129,7 @@ class _detailListGJState extends State<detailListGJ> {
   }
 
   deleteData() {
-    var url = 'http://121.158.192.235/gj_delete_d.php';
+    var url = '${root_url}/gj_delete_d.php';
     http.post(url, body: {
       'ID': widget.d_list[widget.d_index]['ID'],
       'PDCOD': pdcod.text,

@@ -29,6 +29,8 @@ class NKFlutter extends StatelessWidget {
   }
 }
 
+final String root_url = 'http://192.168.0.191'; // URL 이것만 수정하면 됨
+
 final List<Tab> Tabs = <Tab>[
   Tab(text: '수주내역'),
   Tab(text: '견적'),
@@ -46,7 +48,7 @@ class SJMain extends StatefulWidget {
 class _SJMainState extends State<SJMain> {
   Future getData() async {
     try {
-      var url = 'http://121.158.192.235/read.php';
+      var url = '${root_url}/read.php';
       var response = await http.get(url);
       return json.decode(response.body);
     } catch (e) {
@@ -56,7 +58,7 @@ class _SJMainState extends State<SJMain> {
 
   Future getGJ() async {
     try {
-      var url = 'http://121.158.192.235/gj_read.php';
+      var url = '${root_url}/gj_read.php';
       var response = await http.get(url);
       return json.decode(response.body);
     } catch (e) {
@@ -197,7 +199,7 @@ class _SJMainState extends State<SJMain> {
                                                 setState(
                                                   () {
                                                     var url =
-                                                        'http://121.158.192.235/delete.php';
+                                                        '${root_url}/delete.php';
                                                     http.post(
                                                       url,
                                                       body: {
@@ -336,7 +338,7 @@ class _SJMainState extends State<SJMain> {
                                                 setState(
                                                   () {
                                                     var url =
-                                                        'http://121.158.192.235/gj_delete.php';
+                                                        '${root_url}/gj_delete.php';
                                                     http.post(
                                                       url,
                                                       body: {

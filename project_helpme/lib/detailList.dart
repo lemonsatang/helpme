@@ -8,7 +8,8 @@ import 'dart:async';
 class detailList extends StatefulWidget {
   final List d_list;
   final int d_index;
-  detailList({required this.d_list, required this.d_index});
+  final int d_id;
+  detailList({required this.d_list, required this.d_index, required this.d_id});
 
   @override
   _detailListState createState() => _detailListState();
@@ -63,12 +64,11 @@ class _detailListState extends State<detailList> {
       mdate.text = widget.d_list[widget.d_index]['MDATE'];
       cuser.text = widget.d_list[widget.d_index]['CUSER'];
       muser.text = widget.d_list[widget.d_index]['MUSER'];
-      print(pdcod.text);
     }
   }
 
   void _crtDetailList() async {
-    var response = await http.post('http://121.158.192.235/read_d.php',
+    var response = await http.post('${root_url}/read_d.php',
         body: {'ID': widget.d_list[widget.d_index]['ID']});
 
     setState(() {
@@ -78,7 +78,7 @@ class _detailListState extends State<detailList> {
 
   addUpdateDetail() {
     if (editMode) {
-      var url = 'http://121.158.192.235/edit_d.php';
+      var url = '${root_url}/edit_d.php';
       http.post(url, body: {
         'ID': widget.d_list[widget.d_index]['ID'],
         'PDCOD': pdcod.text,
@@ -98,7 +98,7 @@ class _detailListState extends State<detailList> {
         'MUSER': muser.text,
       });
     } else {
-      var url = 'http://http://121.158.192.235/add_d.php';
+      var url = '${root_url}/add_d.php';
       try {
         http.post(url, body: {
           'PDCOD': pdcod.text,
@@ -115,7 +115,7 @@ class _detailListState extends State<detailList> {
           'U_JRYANG': u_jryang.text,
           'JRYANG': jryang.text,
           'BIGO': bigo.text,
-          'CUSER': muser.text,
+          'CUSER': cuser.text,
         });
       } catch (e) {
         print(e);
@@ -128,7 +128,7 @@ class _detailListState extends State<detailList> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('DetailItem'),
+        title: Text('상세내역 수정 / 추가'),
         actions: [
           InkWell(
             onTap: () {},

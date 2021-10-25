@@ -4,4 +4,4 @@
 
 	$id = $_POST['id'];
 
-	$link->query("DELETE FROM geonjuck_m WHERE id = '".$id."'");
+	$link->query("DELETE FROM gj_m WHERE id = '".$id."'");

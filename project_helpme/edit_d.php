@@ -19,7 +19,7 @@
 	$muser = $_POST['MUSER'];
 	$temp = $_POST['TEMP'];
 
-	$link->query("UPDATE gj_m 
+	$link->query("UPDATE crt_dft_d
 					SET COMP = '".$comp."'
 					, C_CODE = '".$c_code."'
 					, J_BUNHO = '".$j_bunho."'

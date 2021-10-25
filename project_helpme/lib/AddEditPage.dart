@@ -37,7 +37,7 @@ class _AddEditPageState extends State<AddEditPage> {
   List _dataList = [];
 
   void _crtDataList() async {
-    var response = await http.post('http://121.158.192.235/read_d.php',
+    var response = await http.post('${root_url}/read_d.php',
         body: {'ID': widget.list[widget.index]['ID']});
 
     setState(() {
@@ -47,7 +47,7 @@ class _AddEditPageState extends State<AddEditPage> {
 
   addUpdateData() {
     if (editMode) {
-      var url = 'http://121.158.192.235/edit.php';
+      var url = '${root_url}/edit.php';
       http.post(url, body: {
         'ID': widget.list[widget.index]['ID'],
         'COMP': comp.text,
@@ -65,7 +65,7 @@ class _AddEditPageState extends State<AddEditPage> {
         'MUESR': muser.text,
       });
     } else {
-      var url = 'http://121.158.192.235/add.php';
+      var url = '${root_url}/add.php';
       try {
         http.post(url, body: {
           'COMP': comp.text,
@@ -161,7 +161,23 @@ class _AddEditPageState extends State<AddEditPage> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  setState(
+                    () {
+                      addUpdateData();
+                    },
+                  );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => detailList(
+                        d_list: [],
+                        d_index: -1,
+                        d_id: int.parse(widget.list[widget.index]['ID']),
+                      ),
+                    ),
+                  );
+                },
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: Column(
@@ -188,7 +204,7 @@ class _AddEditPageState extends State<AddEditPage> {
               preferredSize: Size.fromHeight(160.0),
               child: Center(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(20.0, 80.0, 20.0, 0),
+                  padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -252,108 +268,120 @@ class _AddEditPageState extends State<AddEditPage> {
             ListView(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: comp,
+                    maxLength: 25,
                     decoration: InputDecoration(
                       labelText: '거래처명',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: c_code,
+                    maxLength: 25,
                     decoration: InputDecoration(
                       labelText: '거래처 코드',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: j_bunho,
+                    maxLength: 25,
                     decoration: InputDecoration(
                       labelText: '전표번호',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: phone,
+                    maxLength: 20,
                     decoration: InputDecoration(
                       labelText: '전화번호',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: fax,
+                    maxLength: 20,
                     decoration: InputDecoration(
                       labelText: '팩스번호',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: usrnm,
+                    maxLength: 10,
                     decoration: InputDecoration(
                       labelText: '의뢰자명',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: i_jogun,
+                    maxLength: 128,
                     decoration: InputDecoration(
                       labelText: '인도조건',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: j_jogun,
+                    maxLength: 128,
                     decoration: InputDecoration(
                       labelText: '지불조건',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: gunsoo,
+                    maxLength: 8,
                     decoration: InputDecoration(
                       labelText: '건수',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: sryang,
+                    maxLength: 8,
                     decoration: InputDecoration(
                       labelText: '수량',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: jryang,
+                    maxLength: 20,
                     decoration: InputDecoration(
                       labelText: '중량',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: bigo,
+                    maxLength: 128,
                     decoration: InputDecoration(
                       labelText: '비고',
                     ),
@@ -435,6 +463,7 @@ class _AddEditPageState extends State<AddEditPage> {
                                     builder: (context) => detailList(
                                       d_list: _dataList,
                                       d_index: 0,
+                                      d_id: int.parse(item["ID"]),
                                     ),
                                   ),
                                 );

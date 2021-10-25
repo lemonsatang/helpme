@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_helpme/main.dart';
 import 'dart:convert';
+import 'dart:async';
 import 'package:project_helpme/detailList.dart';
-import 'gj_detailList.dart';
+import 'package:project_helpme/gj_detailList.dart';
 
 class gj_AddEditPage extends StatefulWidget {
   final List list;
@@ -37,7 +38,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
   List _dataListGJ = [];
 
   void _crtDataListGJ() async {
-    var response = await http.post('http://121.158.192.235/gj_read_d.php',
+    var response = await http.post('${root_url}/gj_read_d.php',
         body: {'ID': widget.list[widget.index]['ID']});
 
     setState(() {
@@ -45,9 +46,9 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
     });
   }
 
-  addUpdateData() {
+  addUpdateDataGJ() {
     if (editMode) {
-      var url = 'http://121.158.192.235/gj_edit.php';
+      var url = '${root_url}/gj_edit.php';
       http.post(url, body: {
         'ID': widget.list[widget.index]['ID'],
         'COMP': comp.text,
@@ -65,7 +66,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
         'MUESR': muser.text,
       });
     } else {
-      var url = 'http://121.158.192.235/gj_add.php';
+      var url = '${root_url}/gj_add.php';
       try {
         http.post(url, body: {
           'COMP': comp.text,
@@ -80,7 +81,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
           'SRYANG': sryang.text,
           'JRYANG': jryang.text,
           'BIGO': bigo.text,
-          'CUESR': cuser.text,
+          'CUSER': cuser.text,
         });
       } catch (e) {
         print(e);
@@ -129,7 +130,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                 onTap: () {
                   setState(
                     () {
-                      addUpdateData();
+                      addUpdateDataGJ();
                     },
                   );
                   Navigator.push(
@@ -161,7 +162,23 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  setState(
+                    () {
+                      addUpdateDataGJ();
+                    },
+                  );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => detailList(
+                        d_list: [],
+                        d_index: -1,
+                        d_id: int.parse(widget.list[widget.index]['ID']),
+                      ),
+                    ),
+                  );
+                },
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: Column(
@@ -252,108 +269,120 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
             ListView(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: comp,
+                    maxLength: 25,
                     decoration: InputDecoration(
                       labelText: '거래처명',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: c_code,
+                    maxLength: 25,
                     decoration: InputDecoration(
                       labelText: '거래처 코드',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: j_bunho,
+                    maxLength: 25,
                     decoration: InputDecoration(
                       labelText: '전표번호',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: phone,
+                    maxLength: 20,
                     decoration: InputDecoration(
                       labelText: '전화번호',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: fax,
+                    maxLength: 20,
                     decoration: InputDecoration(
                       labelText: '팩스번호',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: usrnm,
+                    maxLength: 10,
                     decoration: InputDecoration(
                       labelText: '의뢰자명',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: i_jogun,
+                    maxLength: 128,
                     decoration: InputDecoration(
                       labelText: '인도조건',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: j_jogun,
+                    maxLength: 128,
                     decoration: InputDecoration(
                       labelText: '지불조건',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: gunsoo,
+                    maxLength: 8,
                     decoration: InputDecoration(
                       labelText: '건수',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: sryang,
+                    maxLength: 8,
                     decoration: InputDecoration(
                       labelText: '수량',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: jryang,
+                    maxLength: 20,
                     decoration: InputDecoration(
                       labelText: '중량',
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
                     controller: bigo,
+                    maxLength: 128,
                     decoration: InputDecoration(
                       labelText: '비고',
                     ),
@@ -368,7 +397,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                     onPressed: () {
                       setState(
                         () {
-                          addUpdateData();
+                          addUpdateDataGJ();
                         },
                       );
                       Navigator.push(
@@ -435,6 +464,7 @@ class _gj_AddEditPageState extends State<gj_AddEditPage> {
                                     builder: (context) => detailListGJ(
                                       d_list: _dataListGJ,
                                       d_index: 0,
+                                      d_id: int.parse(item["ID"]),
                                     ),
                                   ),
                                 );

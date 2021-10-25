@@ -399,12 +399,7 @@ class _AddEditPageState extends State<AddEditPage> {
                           addUpdateData();
                         },
                       );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NKFlutter(),
-                        ),
-                      );
+                      Navigator.pop(context);
                     },
                     child: Text(
                       editMode ? '수정된 내용 저장' : '의뢰 추가하기',

@@ -131,7 +131,14 @@ class _detailListState extends State<detailList> {
         title: Text('상세내역 수정 / 추가'),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              setState(
+                () {
+                  addUpdateDetail();
+                },
+              );
+              Navigator.pop(context);
+            },
             child: Padding(
               padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
               child: Column(
@@ -301,12 +308,7 @@ class _detailListState extends State<detailList> {
                       addUpdateDetail();
                     },
                   );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NKFlutter(),
-                    ),
-                  );
+                  Navigator.pop(context);
                 },
                 child: Text(
                   editMode ? '수정된 내용 저장' : '의뢰 추가하기',

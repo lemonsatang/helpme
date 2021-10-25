@@ -80,7 +80,7 @@ class _detailListState extends State<detailList> {
     if (editMode) {
       var url = '${root_url}/edit_d.php';
       http.post(url, body: {
-        'ID': widget.d_list[widget.d_index]['ID'],
+        'ID': widget.d_id,
         'PDCOD': pdcod.text,
         'SEQ': seq.text,
         'COMP': comp.text,
@@ -101,8 +101,7 @@ class _detailListState extends State<detailList> {
       var url = '${root_url}/add_d.php';
       try {
         http.post(url, body: {
-          'PDCOD': pdcod.text,
-          'SEQ': seq.text,
+          'ID': widget.d_id.toString(),
           'COMP': comp.text,
           'C_CODE': c_code.text,
           'PDNM': pdnm.text,

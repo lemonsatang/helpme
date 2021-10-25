@@ -337,6 +337,46 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                   child: TextField(
+                    controller: comp,
+                    maxLength: 25,
+                    decoration: InputDecoration(
+                      labelText: '거래처명',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: TextField(
+                    controller: projno,
+                    maxLength: 8,
+                    decoration: InputDecoration(
+                      labelText: '프로젝트 번호',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: TextField(
+                    controller: soosin,
+                    maxLength: 25,
+                    decoration: InputDecoration(
+                      labelText: '수신',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: TextField(
+                    controller: chamjo,
+                    maxLength: 25,
+                    decoration: InputDecoration(
+                      labelText: '참조',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: TextField(
                     controller: phone,
                     maxLength: 20,
                     decoration: InputDecoration(
@@ -360,7 +400,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                     controller: usrnm,
                     maxLength: 10,
                     decoration: InputDecoration(
-                      labelText: '의뢰자명',
+                      labelText: '영업담당',
                     ),
                   ),
                 ),
@@ -381,6 +421,26 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                     maxLength: 128,
                     decoration: InputDecoration(
                       labelText: '지불조건',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: TextField(
+                    controller: nabgi,
+                    maxLength: 20,
+                    decoration: InputDecoration(
+                      labelText: '납기기한',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: TextField(
+                    controller: yoohyo,
+                    maxLength: 20,
+                    decoration: InputDecoration(
+                      labelText: '유효기간',
                     ),
                   ),
                 ),
@@ -411,6 +471,36 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                     maxLength: 20,
                     decoration: InputDecoration(
                       labelText: '중량',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: TextField(
+                    controller: gonggup,
+                    maxLength: 8,
+                    decoration: InputDecoration(
+                      labelText: '공급가액',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: TextField(
+                    controller: booga,
+                    maxLength: 8,
+                    decoration: InputDecoration(
+                      labelText: '부가세',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                  child: TextField(
+                    controller: hapgye,
+                    maxLength: 8,
+                    decoration: InputDecoration(
+                      labelText: '합계금액',
                     ),
                   ),
                 ),

@@ -23,8 +23,6 @@ class _detailListKJState extends State<detailListKJ> {
   TextEditingController pdcod = TextEditingController();
   TextEditingController id = TextEditingController();
   TextEditingController seq = TextEditingController();
-  TextEditingController comp = TextEditingController();
-  TextEditingController c_code = TextEditingController();
   TextEditingController pdnm = TextEditingController();
   TextEditingController maker = TextEditingController();
   TextEditingController jaejil = TextEditingController();
@@ -34,6 +32,11 @@ class _detailListKJState extends State<detailListKJ> {
   TextEditingController unit = TextEditingController();
   TextEditingController u_jryang = TextEditingController();
   TextEditingController jryang = TextEditingController();
+  TextEditingController danga = TextEditingController();
+  TextEditingController udanga = TextEditingController();
+  TextEditingController gonggup = TextEditingController();
+  TextEditingController booga = TextEditingController();
+  TextEditingController hapgye = TextEditingController();
   TextEditingController bigo = TextEditingController();
   TextEditingController cdate = TextEditingController();
   TextEditingController cuser = TextEditingController();
@@ -52,8 +55,6 @@ class _detailListKJState extends State<detailListKJ> {
       editMode = true;
       pdcod.text = widget.d_list[widget.d_index]['PDCOD'];
       seq.text = widget.d_list[widget.d_index]['SEQ'];
-      comp.text = widget.d_list[widget.d_index]['COMP'];
-      c_code.text = widget.d_list[widget.d_index]['C_CODE'];
       pdnm.text = widget.d_list[widget.d_index]['PDNM'];
       maker.text = widget.d_list[widget.d_index]['MAKER'];
       jaejil.text = widget.d_list[widget.d_index]['JAEJIL'];
@@ -63,6 +64,10 @@ class _detailListKJState extends State<detailListKJ> {
       unit.text = widget.d_list[widget.d_index]['UNIT'];
       u_jryang.text = widget.d_list[widget.d_index]['U_JRYANG'];
       jryang.text = widget.d_list[widget.d_index]['JRYANG'];
+      danga.text = widget.d_list[widget.d_index]['DANGA'];
+      udanga.text = widget.d_list[widget.d_index]['UDANGA'];
+      gonggup.text = widget.d_list[widget.d_index]['GONGGUP'];
+      hapgye.text = widget.d_list[widget.d_index]['HAPGYE'];
       bigo.text = widget.d_list[widget.d_index]['BIGO'];
       cdate.text = widget.d_list[widget.d_index]['CDATE'];
       mdate.text = widget.d_list[widget.d_index]['MDATE'];
@@ -88,8 +93,6 @@ class _detailListKJState extends State<detailListKJ> {
         'ID': widget.d_list[widget.d_index]['ID'],
         'PDCOD': pdcod.text,
         'SEQ': seq.text,
-        'COMP': comp.text,
-        'C_CODE': c_code.text,
         'PDNM': pdnm.text,
         'MAKER': maker.text,
         'JAEJIL': jaejil.text,
@@ -99,6 +102,11 @@ class _detailListKJState extends State<detailListKJ> {
         'UNIT': unit.text,
         'U_JRYANG': u_jryang.text,
         'JRYANG': jryang.text,
+        'DANGA': danga.text,
+        'UDANGA': udanga.text,
+        'GONGGUP': gonggup.text,
+        'BOOGA': booga.text,
+        'HAPGYE': hapgye.text,
         'BIGO': bigo.text,
         'MUSER': muser.text,
       });
@@ -108,8 +116,6 @@ class _detailListKJState extends State<detailListKJ> {
         http.post(url, body: {
           'PDCOD': pdcod.text,
           'SEQ': seq.text,
-          'COMP': comp.text,
-          'C_CODE': c_code.text,
           'PDNM': pdnm.text,
           'MAKER': maker.text,
           'JAEJIL': jaejil.text,
@@ -119,8 +125,13 @@ class _detailListKJState extends State<detailListKJ> {
           'UNIT': unit.text,
           'U_JRYANG': u_jryang.text,
           'JRYANG': jryang.text,
+          'DANGA': danga.text,
+          'UDANGA': udanga.text,
+          'GONGGUP': gonggup.text,
+          'BOOGA': booga.text,
+          'HAPGYE': hapgye.text,
           'BIGO': bigo.text,
-          'CUSER': muser.text,
+          'CUSER': cuser.text,
         });
       } catch (e) {
         print(e);
@@ -216,24 +227,6 @@ class _detailListKJState extends State<detailListKJ> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                controller: comp,
-                decoration: InputDecoration(
-                  labelText: '거래처명',
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: c_code,
-                decoration: InputDecoration(
-                  labelText: '거래처 코드',
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
                 controller: pdnm,
                 decoration: InputDecoration(
                   labelText: '상품명',
@@ -300,6 +293,60 @@ class _detailListKJState extends State<detailListKJ> {
                 controller: u_jryang,
                 decoration: InputDecoration(
                   labelText: '단위중량',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: jryang,
+                decoration: InputDecoration(
+                  labelText: '중량',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: danga,
+                decoration: InputDecoration(
+                  labelText: '단가',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: udanga,
+                decoration: InputDecoration(
+                  labelText: '단위단가',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: gonggup,
+                decoration: InputDecoration(
+                  labelText: '공급가액',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: booga,
+                decoration: InputDecoration(
+                  labelText: '부가세',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: hapgye,
+                decoration: InputDecoration(
+                  labelText: '합계급액',
                 ),
               ),
             ),

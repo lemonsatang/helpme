@@ -346,7 +346,7 @@ class _detailListKJState extends State<detailListKJ> {
               child: TextField(
                 controller: hapgye,
                 decoration: InputDecoration(
-                  labelText: '합계급액',
+                  labelText: '합계금액',
                 ),
               ),
             ),

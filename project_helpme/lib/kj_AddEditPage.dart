@@ -550,6 +550,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                 child:
                     // 임시 데이터테이블
                     DataTable(
+                  showCheckboxColumn: false,
                   headingRowHeight: 40.0,
                   headingRowColor: MaterialStateColor.resolveWith(
                     (states) {
@@ -570,7 +571,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                       label: Text('순번'),
                     ),
                     DataColumn(
-                      label: Text('품명'),
+                      label: Text('상품명'),
                     ),
                     DataColumn(
                       label: Text('수량'),
@@ -580,27 +581,29 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                     ),
                   ],
                   rows: _dataListKJ
-                      .map((item) => DataRow(cells: <DataCell>[
+                      .map(
+                        (item) => DataRow(
+                          onSelectChanged: (bool) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => detailListKJ(
+                                  d_list: _dataListKJ,
+                                  d_index: 0,
+                                  d_id: int.parse(item["ID"]),
+                                  d_pdcod: int.parse(item["PDCOD"]),
+                                ),
+                              ),
+                            );
+                          },
+                          cells: <DataCell>[
                             DataCell(Text(item["SEQ"].toString())),
-                            DataCell(
-                              Text(item["PDNM"].toString()),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => detailListKJ(
-                                      d_list: _dataListKJ,
-                                      d_index: 0,
-                                      d_id: int.parse(item["ID"]),
-                                      d_pdcod: int.parse(item["PDCOD"]),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
+                            DataCell(Text(item["PDNM"].toString())),
                             DataCell(Text(item["SRYANG"])),
-                            DataCell(Text(item["JRYANG"] + "kg")),
-                          ]))
+                            DataCell(Text(item["JRYANG"] + " kg")),
+                          ],
+                        ),
+                      )
                       .toList(),
                 ),
                 // 임시 데이터테이블

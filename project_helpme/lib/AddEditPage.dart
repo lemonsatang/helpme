@@ -422,6 +422,7 @@ class _AddEditPageState extends State<AddEditPage> {
                 child:
                     // 임시 데이터테이블
                     DataTable(
+                  showCheckboxColumn: false,
                   headingRowHeight: 40.0,
                   headingRowColor: MaterialStateColor.resolveWith(
                     (states) {
@@ -452,27 +453,29 @@ class _AddEditPageState extends State<AddEditPage> {
                     ),
                   ],
                   rows: _dataList
-                      .map((item) => DataRow(cells: <DataCell>[
+                      .map(
+                        (item) => DataRow(
+                          onSelectChanged: (bool) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => detailList(
+                                  d_list: _dataList,
+                                  d_index: 0,
+                                  d_id: int.parse(item["ID"]),
+                                  d_pdcod: int.parse(item["PDCOD"]),
+                                ),
+                              ),
+                            );
+                          },
+                          cells: <DataCell>[
                             DataCell(Text(item["SEQ"].toString())),
-                            DataCell(
-                              Text(item["PDNM"].toString()),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => detailList(
-                                      d_list: _dataList,
-                                      d_index: 0,
-                                      d_id: int.parse(item["ID"]),
-                                      d_pdcod: int.parse(item["PDCOD"]),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
+                            DataCell(Text(item["PDNM"].toString())),
                             DataCell(Text(item["SRYANG"])),
-                            DataCell(Text(item["JRYANG"] + "kg")),
-                          ]))
+                            DataCell(Text(item["JRYANG"] + " kg")),
+                          ],
+                        ),
+                      )
                       .toList(),
                 ),
                 // 임시 데이터테이블

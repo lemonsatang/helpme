@@ -9,7 +9,12 @@ class detailList extends StatefulWidget {
   final List d_list;
   final int d_index;
   final int d_id;
-  detailList({required this.d_list, required this.d_index, required this.d_id});
+  final int d_pdcod;
+  detailList(
+      {required this.d_list,
+      required this.d_index,
+      required this.d_id,
+      required this.d_pdcod});
 
   @override
   _detailListState createState() => _detailListState();
@@ -40,21 +45,37 @@ class _detailListState extends State<detailList> {
 
   List _detailList = [];
 
+  void _crtDetailList() async {
+    print(widget.d_list[widget.d_index]['PDCOD']);
+    var response = await http.post('${root_url}/read_d_data.php', body: {
+      'PDCOD': widget.d_list[widget.d_index]['PDCOD'],
+    });
+    _detailList = json.decode(response.body);
+    print(_detailList);
+    print(_detailList[0]['COMP']);
+    comp.text = _detailList[0]['COMP'];
+    c_code.text = _detailList[0]['C_CODE'];
+    pdnm.text = _detailList[0]['PDNM'];
+    maker.text = _detailList[0]['MAKER'];
+    jaejil.text = _detailList[0]['JAEJIL'];
+    size.text = _detailList[0]['SIZE'];
+    choolgo.text = _detailList[0]['CHOOLGO'];
+
+    setState(() {
+      _detailList = json.decode(response.body);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     if (widget.d_index != -1) {
       _crtDetailList();
+      print(_detailList);
       editMode = true;
+      id.text = widget.d_list[widget.d_index]['ID'];
       pdcod.text = widget.d_list[widget.d_index]['PDCOD'];
       seq.text = widget.d_list[widget.d_index]['SEQ'];
-      comp.text = widget.d_list[widget.d_index]['COMP'];
-      c_code.text = widget.d_list[widget.d_index]['C_CODE'];
-      pdnm.text = widget.d_list[widget.d_index]['PDNM'];
-      maker.text = widget.d_list[widget.d_index]['MAKER'];
-      jaejil.text = widget.d_list[widget.d_index]['JAEJIL'];
-      size.text = widget.d_list[widget.d_index]['SIZE'];
-      choolgo.text = widget.d_list[widget.d_index]['CHOOLGO'];
       sryang.text = widget.d_list[widget.d_index]['SRYANG'];
       unit.text = widget.d_list[widget.d_index]['UNIT'];
       u_jryang.text = widget.d_list[widget.d_index]['U_JRYANG'];
@@ -67,21 +88,12 @@ class _detailListState extends State<detailList> {
     }
   }
 
-  void _crtDetailList() async {
-    var response = await http.post('${root_url}/read_d.php',
-        body: {'ID': widget.d_list[widget.d_index]['ID']});
-
-    setState(() {
-      _detailList = json.decode(response.body);
-    });
-  }
-
   addUpdateDetail() {
     if (editMode) {
       var url = '${root_url}/edit_d.php';
       http.post(url, body: {
-        'ID': widget.d_id.toString(),
-        'PDCOD': pdcod.text,
+        'ID': id.text,
+        'PDCOD': widget.d_pdcod.toString(),
         'SEQ': seq.text,
         'COMP': comp.text,
         'C_CODE': c_code.text,
@@ -101,7 +113,7 @@ class _detailListState extends State<detailList> {
       var url = '${root_url}/add_d.php';
       try {
         http.post(url, body: {
-          'ID': widget.d_id.toString(),
+          'ID': id.text,
           'COMP': comp.text,
           'C_CODE': c_code.text,
           'PDNM': pdnm.text,
@@ -125,7 +137,7 @@ class _detailListState extends State<detailList> {
   deleteDetail() {
     var url = '${root_url}/delete_d.php';
     http.post(url, body: {
-      'ID': widget.d_id.toString(),
+      'ID': id.text,
       'SEQ': seq.text,
     });
   }

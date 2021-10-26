@@ -207,7 +207,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => detailList(
+                      builder: (context) => detailListKJ(
                         d_list: [],
                         d_index: -1,
                         d_id: int.parse(widget.list[widget.index]['ID']),

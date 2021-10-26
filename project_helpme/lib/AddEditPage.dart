@@ -171,10 +171,10 @@ class _AddEditPageState extends State<AddEditPage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => detailList(
-                        d_list: [],
-                        d_index: -1,
-                        d_id: int.parse(widget.list[widget.index]['ID']),
-                      ),
+                          d_list: [],
+                          d_index: -1,
+                          d_id: int.parse(widget.list[widget.index]['ID']),
+                          d_pdcod: 0),
                     ),
                   );
                 },
@@ -459,6 +459,7 @@ class _AddEditPageState extends State<AddEditPage> {
                                       d_list: _dataList,
                                       d_index: 0,
                                       d_id: int.parse(item["ID"]),
+                                      d_pdcod: int.parse(item["PDCOD"]),
                                     ),
                                   ),
                                 );

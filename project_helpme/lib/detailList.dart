@@ -80,7 +80,7 @@ class _detailListState extends State<detailList> {
     if (editMode) {
       var url = '${root_url}/edit_d.php';
       http.post(url, body: {
-        'ID': widget.d_id,
+        'ID': widget.d_id.toString(),
         'PDCOD': pdcod.text,
         'SEQ': seq.text,
         'COMP': comp.text,
@@ -122,6 +122,14 @@ class _detailListState extends State<detailList> {
     }
   }
 
+  deleteDetail() {
+    var url = '${root_url}/delete_d.php';
+    http.post(url, body: {
+      'ID': widget.d_id.toString(),
+      'SEQ': seq.text,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,7 +169,19 @@ class _detailListState extends State<detailList> {
           ),
           editMode
               ? InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    setState(
+                      () {
+                        deleteDetail();
+                      },
+                    );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NKFlutter(),
+                      ),
+                    );
+                  },
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                     child: Column(
@@ -189,15 +209,6 @@ class _detailListState extends State<detailList> {
       body: Center(
         child: ListView(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: pdcod,
-                decoration: InputDecoration(
-                  labelText: '상품번호',
-                ),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(

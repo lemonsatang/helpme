@@ -2,6 +2,7 @@
 
 	include 'database.php';
 
-	$id = $_POST['id'];
+	$id = $_POST['ID'];
+	$seq = $_POST['SEQ'];
 
-	$link->query("DELETE FROM crt_dft_d WHERE id = '".$id."'");
+	$link->query("DELETE FROM crt_dft_d WHERE ID = '".$id."' and SEQ = '".$seq."'");

@@ -29,7 +29,7 @@ class NKFlutter extends StatelessWidget {
   }
 }
 
-final String root_url = 'http://192.168.0.152'; // URL 이것만 수정하면 됨
+final String root_url = 'http://192.168.0.191'; // URL 이것만 수정하면 됨
 
 final List<Tab> Tabs = <Tab>[
   Tab(text: '수주내역'),
@@ -49,6 +49,7 @@ class _SJMainState extends State<SJMain> {
     try {
       var url = '${root_url}/read.php';
       var response = await http.post(url, body: {'KEYWORD': text});
+      print(text);
       return json.decode(response.body);
     } catch (e) {
       print(e);
@@ -107,7 +108,7 @@ class _SJMainState extends State<SJMain> {
                   ),
                   suffixIcon: IconButton(
                     onPressed: () {
-                      getData(searchText.text);
+                      setState(() {});
                     },
                     icon: Icon(
                       Icons.search_rounded,
@@ -158,9 +159,6 @@ class _SJMainState extends State<SJMain> {
                             child: Card(
                               color: Colors.white,
                               child: ListTile(
-                                // tileColor: Colors.white,
-                                // title: Text(list[index]['COMP']),
-                                // subtitle: Text(list[index]['C_CODE']),
                                 contentPadding: EdgeInsets.all(15.0),
                                 title: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -9,10 +9,13 @@ class detailListKJ extends StatefulWidget {
   final List d_list;
   final int d_index;
   final int d_id;
+  final int d_pdcod;
+
   detailListKJ({
     required this.d_list,
     required this.d_index,
     required this.d_id,
+    required this.d_pdcod,
   });
 
   @override
@@ -53,7 +56,7 @@ class _detailListKJState extends State<detailListKJ> {
     if (widget.d_index != -1) {
       _crtDetailList();
       editMode = true;
-      pdcod.text = widget.d_list[widget.d_index]['PDCOD'];
+      pdcod.text = widget.d_pdcod.toString();
       seq.text = widget.d_list[widget.d_index]['SEQ'];
       pdnm.text = widget.d_list[widget.d_index]['PDNM'];
       maker.text = widget.d_list[widget.d_index]['MAKER'];
@@ -67,6 +70,7 @@ class _detailListKJState extends State<detailListKJ> {
       danga.text = widget.d_list[widget.d_index]['DANGA'];
       udanga.text = widget.d_list[widget.d_index]['UDANGA'];
       gonggup.text = widget.d_list[widget.d_index]['GONGGUP'];
+      booga.text = widget.d_list[widget.d_index]['BOOGA'];
       hapgye.text = widget.d_list[widget.d_index]['HAPGYE'];
       bigo.text = widget.d_list[widget.d_index]['BIGO'];
       cdate.text = widget.d_list[widget.d_index]['CDATE'];
@@ -88,11 +92,10 @@ class _detailListKJState extends State<detailListKJ> {
 
   addUpdateDetail() {
     if (editMode) {
-      var url = '${root_url}/edit_d.php';
+      var url = '${root_url}/kj_edit_d.php';
       http.post(url, body: {
-        'ID': widget.d_list[widget.d_index]['ID'],
-        'PDCOD': pdcod.text,
-        'SEQ': seq.text,
+        'ID': widget.d_id.toString(),
+        'PDCOD': widget.d_pdcod.toString(),
         'PDNM': pdnm.text,
         'MAKER': maker.text,
         'JAEJIL': jaejil.text,
@@ -111,11 +114,10 @@ class _detailListKJState extends State<detailListKJ> {
         'MUSER': muser.text,
       });
     } else {
-      var url = '${root_url}/add_d.php';
+      var url = '${root_url}/kj_add_d.php';
       try {
         http.post(url, body: {
-          'PDCOD': pdcod.text,
-          'SEQ': seq.text,
+          'ID': widget.d_id.toString(),
           'PDNM': pdnm.text,
           'MAKER': maker.text,
           'JAEJIL': jaejil.text,
@@ -142,9 +144,7 @@ class _detailListKJState extends State<detailListKJ> {
   deleteData() {
     var url = '${root_url}/kj_delete_d.php';
     http.post(url, body: {
-      'ID': widget.d_list[widget.d_index]['ID'],
-      'PDCOD': pdcod.text,
-      'SEQ': seq.text,
+      'PDCOD': widget.d_pdcod.toString(),
     });
   }
 
@@ -156,7 +156,14 @@ class _detailListKJState extends State<detailListKJ> {
         title: Text('DetailItem'),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              setState(
+                () {
+                  addUpdateDetail();
+                },
+              );
+              Navigator.pop(context);
+            },
             child: Padding(
               padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
               child: Column(
@@ -217,15 +224,6 @@ class _detailListKJState extends State<detailListKJ> {
       body: Center(
         child: ListView(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: pdcod,
-                decoration: InputDecoration(
-                  labelText: '상품번호',
-                ),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(

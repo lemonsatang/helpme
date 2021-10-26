@@ -46,7 +46,6 @@ class _detailListState extends State<detailList> {
   List _detailList = [];
 
   void _crtDetailList() async {
-    print(widget.d_list[widget.d_index]['PDCOD']);
     var response = await http.post('${root_url}/read_d_data.php', body: {
       'PDCOD': widget.d_list[widget.d_index]['PDCOD'],
     });
@@ -92,7 +91,7 @@ class _detailListState extends State<detailList> {
     if (editMode) {
       var url = '${root_url}/edit_d.php';
       http.post(url, body: {
-        'ID': id.text,
+        'ID': widget.d_id.toString(),
         'PDCOD': widget.d_pdcod.toString(),
         'SEQ': seq.text,
         'COMP': comp.text,

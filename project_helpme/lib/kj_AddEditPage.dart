@@ -211,6 +211,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                         d_list: [],
                         d_index: -1,
                         d_id: int.parse(widget.list[widget.index]['ID']),
+                        d_pdcod: 0,
                       ),
                     ),
                   );
@@ -591,6 +592,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                                       d_list: _dataListKJ,
                                       d_index: 0,
                                       d_id: int.parse(item["ID"]),
+                                      d_pdcod: int.parse(item["PDCOD"]),
                                     ),
                                   ),
                                 );

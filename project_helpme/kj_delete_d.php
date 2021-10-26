@@ -2,7 +2,6 @@
 
 	include 'database.php';
 
-	$id = $_POST['id'];
-    $seq = $_POST['seq'];
+    $pdcod = $_POST['PDCOD'];
 
-	$link->query("DELETE FROM kj_d WHERE id = '".$id."' and seq = '".$seq."'" );
+	$link->query("DELETE FROM kj_d WHERE PDCOD = '".$pdcod."'");

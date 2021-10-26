@@ -29,7 +29,7 @@ class NKFlutter extends StatelessWidget {
   }
 }
 
-final String root_url = 'http://192.168.0.152'; // URL 이것만 수정하면 됨
+final String root_url = 'http://192.168.0.191'; // URL 이것만 수정하면 됨
 
 final List<Tab> Tabs = <Tab>[
   Tab(text: '수주내역'),

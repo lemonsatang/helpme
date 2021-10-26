@@ -29,7 +29,7 @@ class NKFlutter extends StatelessWidget {
   }
 }
 
-final String root_url = 'http://192.168.0.191'; // URL 이것만 수정하면 됨
+final String root_url = 'http://192.168.0.152'; // URL 이것만 수정하면 됨
 
 final List<Tab> Tabs = <Tab>[
   Tab(text: '수주내역'),
@@ -45,10 +45,10 @@ class SJMain extends StatefulWidget {
 }
 
 class _SJMainState extends State<SJMain> {
-  Future getData() async {
+  Future getData(text) async {
     try {
       var url = '${root_url}/read.php';
-      var response = await http.get(url);
+      var response = await http.post(url, body: {'KEYWORD': text});
       return json.decode(response.body);
     } catch (e) {
       print(e);
@@ -106,7 +106,9 @@ class _SJMainState extends State<SJMain> {
                     borderRadius: BorderRadius.circular(4.0),
                   ),
                   suffixIcon: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      getData(searchText.text);
+                    },
                     icon: Icon(
                       Icons.search_rounded,
                       color: Colors.teal,
@@ -132,7 +134,7 @@ class _SJMainState extends State<SJMain> {
         body: TabBarView(
           children: [
             FutureBuilder(
-              future: getData(),
+              future: getData(searchText.text),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasError) print(snapshot.error);
                 return snapshot.hasData
@@ -381,7 +383,13 @@ class _SJMainState extends State<SJMain> {
                                                     );
                                                   },
                                                 );
-                                                Navigator.pop(context);
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        NKFlutter(),
+                                                  ),
+                                                );
                                               },
                                             ),
                                             TextButton(

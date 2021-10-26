@@ -2,7 +2,10 @@
 
 include 'database.php';
 
-	$query = $link->query("SELECT * FROM crt_dft ORDER BY ID DESC" );
+	$keyword = $_POST['KEYWORD'];
+
+	$query = $link->query("SELECT * FROM crt_dft WHERE (COMP LIKE '%".$keyword."%' or C_CODE LIKE '%".$keyword."%') ORDER BY ID DESC" );
+	
 	$result = array();
 
 	while ($rowData = $query->fetch_assoc()) {

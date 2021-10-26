@@ -113,7 +113,7 @@ class _detailListState extends State<detailList> {
       var url = '${root_url}/add_d.php';
       try {
         http.post(url, body: {
-          'ID': id.text,
+          'ID': widget.d_id.toString(),
           'COMP': comp.text,
           'C_CODE': c_code.text,
           'PDNM': pdnm.text,

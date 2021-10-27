@@ -29,9 +29,9 @@
 	$temp = $_POST['TEMP'];
 
 	$link->query("UPDATE kj_m 
-					SET , J_BUNHO = '".$j_bunho."'
-					, COMP = '".$comp."'
+					SET J_BUNHO = '".$j_bunho."'
 					, KJ_ILJA = '".$kj_ilja."'
+					, C_CODE = '".$c_code."'
 					, COMP = '".$comp."'
 					, PROJNO = '".$projno."'
 					, SOOSIN = '".$soosin."'
@@ -54,6 +54,6 @@
 					, muser = '".$muser."' 
 					, temp = '".$temp."' 
 					WHERE ID = '".$id."'
-					ORDER BY ID DESC");
+					");
 
 ?>

@@ -34,14 +34,14 @@ class _AddEditPageState extends State<AddEditPage> {
 
   bool editMode = false;
 
-  List _dataList = [];
+  List d_dataList = [];
 
   void _crtDataList() async {
     var response = await http.post('${root_url}/read_d.php',
         body: {'ID': widget.list[widget.index]['ID']});
 
     setState(() {
-      _dataList = json.decode(response.body);
+      d_dataList = json.decode(response.body);
     });
   }
 
@@ -407,7 +407,7 @@ class _AddEditPageState extends State<AddEditPage> {
                       );
                     },
                     child: Text(
-                      editMode ? '수정된 내용 저장' : '의뢰 추가하기',
+                      editMode ? '수정된 내용 저장' : '추가하기',
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -419,9 +419,7 @@ class _AddEditPageState extends State<AddEditPage> {
             SingleChildScrollView(
               child: SizedBox(
                 width: double.infinity,
-                child:
-                    // 임시 데이터테이블
-                    DataTable(
+                child: DataTable(
                   showCheckboxColumn: false,
                   headingRowHeight: 40.0,
                   headingRowColor: MaterialStateColor.resolveWith(
@@ -452,7 +450,7 @@ class _AddEditPageState extends State<AddEditPage> {
                       label: Text('중량'),
                     ),
                   ],
-                  rows: _dataList
+                  rows: d_dataList
                       .map(
                         (item) => DataRow(
                           onSelectChanged: (bool) {
@@ -460,8 +458,8 @@ class _AddEditPageState extends State<AddEditPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => detailList(
-                                  d_list: _dataList,
-                                  d_index: 0,
+                                  d_list: d_dataList,
+                                  d_index: int.parse(item["SEQ"]) - 1,
                                   d_id: int.parse(item["ID"]),
                                   d_pdcod: int.parse(item["PDCOD"]),
                                 ),
@@ -478,7 +476,6 @@ class _AddEditPageState extends State<AddEditPage> {
                       )
                       .toList(),
                 ),
-                // 임시 데이터테이블
               ),
             ), // 두번재 탭
           ],

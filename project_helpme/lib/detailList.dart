@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:project_helpme/kj_AddEditPage.dart';
 import 'package:project_helpme/main.dart';
 import 'package:project_helpme/AddEditPage.dart';
 import 'dart:convert';
@@ -50,8 +51,6 @@ class _detailListState extends State<detailList> {
       'PDCOD': widget.d_list[widget.d_index]['PDCOD'],
     });
     _detailList = json.decode(response.body);
-    print(_detailList);
-    print(_detailList[0]['COMP']);
     comp.text = _detailList[0]['COMP'];
     c_code.text = _detailList[0]['C_CODE'];
     pdnm.text = _detailList[0]['PDNM'];
@@ -70,7 +69,6 @@ class _detailListState extends State<detailList> {
     super.initState();
     if (widget.d_index != -1) {
       _crtDetailList();
-      print(_detailList);
       editMode = true;
       id.text = widget.d_list[widget.d_index]['ID'];
       pdcod.text = widget.d_list[widget.d_index]['PDCOD'];
@@ -331,10 +329,15 @@ class _detailListState extends State<detailList> {
                       addUpdateDetail();
                     },
                   );
-                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NKFlutter(),
+                    ),
+                  );
                 },
                 child: Text(
-                  editMode ? '수정된 내용 저장' : '의뢰 추가하기',
+                  editMode ? '수정된 내용 저장' : '추가하기',
                   style: TextStyle(
                     color: Colors.white,
                   ),

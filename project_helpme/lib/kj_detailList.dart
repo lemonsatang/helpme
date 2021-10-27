@@ -162,7 +162,12 @@ class _detailListKJState extends State<detailListKJ> {
                   addUpdateDetail();
                 },
               );
-              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NKFlutter(),
+                ),
+              );
             },
             child: Padding(
               padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
@@ -371,12 +376,15 @@ class _detailListKJState extends State<detailListKJ> {
                       addUpdateDetail();
                     },
                   );
-                  Navigator.pop(
+                  Navigator.push(
                     context,
+                    MaterialPageRoute(
+                      builder: (context) => NKFlutter(),
+                    ),
                   );
                 },
                 child: Text(
-                  editMode ? '수정된 내용 저장' : '의뢰 추가하기',
+                  editMode ? '수정된 내용 저장' : '추가하기',
                   style: TextStyle(
                     color: Colors.white,
                   ),

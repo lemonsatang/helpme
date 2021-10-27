@@ -535,7 +535,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                       );
                     },
                     child: Text(
-                      editMode ? '수정된 내용 저장' : '의뢰 추가하기',
+                      editMode ? '수정된 내용 저장' : '추가하기',
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -589,7 +589,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                               MaterialPageRoute(
                                 builder: (context) => detailListKJ(
                                   d_list: _dataListKJ,
-                                  d_index: 0,
+                                  d_index: int.parse(item["SEQ"]) - 1,
                                   d_id: int.parse(item["ID"]),
                                   d_pdcod: int.parse(item["PDCOD"]),
                                 ),

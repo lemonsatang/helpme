@@ -4,7 +4,7 @@ include 'database.php';
 
     $id = $_POST['ID'];
 
-	$query = $link->query("SELECT * FROM crt_dft_d where ID = '".$id."' ORDER BY ID DESC" );
+	$query = $link->query("SELECT * FROM crt_dft_d where ID = '".$id."'");
 	$result = array();
 
 	while ($rowData = $query->fetch_assoc()) {

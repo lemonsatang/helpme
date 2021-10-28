@@ -153,7 +153,7 @@ class _detailListKJState extends State<detailListKJ> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('DetailItem'),
+        title: Text('상세내역 수정 / 추가'),
         actions: [
           InkWell(
             onTap: () {

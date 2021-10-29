@@ -38,7 +38,7 @@ class _AddEditPageState extends State<AddEditPage> {
 
   void _crtDataList() async {
     var response = await http.post('${root_url}/read_d.php',
-        body: {'ID': widget.list[widget.index]['ID']});
+        body: {'ID': widget.list[widget.index]['ID'].toString()});
 
     setState(() {
       d_dataList = json.decode(response.body);
@@ -49,7 +49,7 @@ class _AddEditPageState extends State<AddEditPage> {
     if (editMode) {
       var url = '${root_url}/edit.php';
       http.post(url, body: {
-        'ID': widget.list[widget.index]['ID'],
+        'ID': widget.list[widget.index]['ID'].toString(),
         'COMP': comp.text,
         'C_CODE': c_code.text,
         'J_BUNHO': j_bunho.text,
@@ -102,8 +102,8 @@ class _AddEditPageState extends State<AddEditPage> {
       usrnm.text = widget.list[widget.index]['USRNM'];
       i_jogun.text = widget.list[widget.index]['I_JOGUN'];
       j_jogun.text = widget.list[widget.index]['J_JOGUN'];
-      gunsoo.text = widget.list[widget.index]['GUNSOO'];
-      sryang.text = widget.list[widget.index]['SRYANG'];
+      gunsoo.text = widget.list[widget.index]['GUNSOO'].toString();
+      sryang.text = widget.list[widget.index]['SRYANG'].toString();
       jryang.text = widget.list[widget.index]['JRYANG'];
       bigo.text = widget.list[widget.index]['BIGO'];
       cdate.text = widget.list[widget.index]['CDATE'];
@@ -160,45 +160,48 @@ class _AddEditPageState extends State<AddEditPage> {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  setState(
-                    () {
-                      addUpdateData();
-                    },
-                  );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => detailList(
-                          d_list: [],
-                          d_index: -1,
-                          d_id: int.parse(widget.list[widget.index]['ID']),
-                          d_pdcod: 0),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.add,
-                        size: 16.0,
-                        color: Colors.green[700],
-                      ),
-                      Text(
-                        '상세내역 추가',
-                        style: TextStyle(
-                          fontSize: 12.0,
+              editMode
+                  ? InkWell(
+                      onTap: () {
+                        setState(
+                          () {
+                            addUpdateData();
+                          },
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => detailList(
+                                d_list: [],
+                                d_index: -1,
+                                d_id:
+                                    int.parse(widget.list[widget.index]['ID']),
+                                d_pdcod: 0),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.add,
+                              size: 16.0,
+                              color: Colors.green[700],
+                            ),
+                            Text(
+                              '상세내역 추가',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    )
+                  : Container(),
             ],
             flexibleSpace: PreferredSize(
               preferredSize: Size.fromHeight(160.0),

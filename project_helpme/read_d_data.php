@@ -2,13 +2,18 @@
 
 include 'database.php';
 
-    $pdcod = $_POST['PDCOD'];
+	$id = $_POST['ID'];
 
-	$query = $link->query("SELECT * FROM crt_dft_d where PDCOD = '".$pdcod."'");
-	$result = array();
+	$tsql = "SELECT * FROM crt_dft_d where PDCOD = '".$pdcod."'";
+	$getResults = sqlsrv_query($link, $tsql);
 
-	while ($rowData = $query->fetch_assoc()) {
-		$result[] = $rowData;
+	if ($getResults == FALSE)
+    die(FormatErrors(sqlsrv_errors()));
+
+	$resultArray = array();
+
+	while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
+		$resultArray[] = $row;
 	}
 
-	echo json_encode($result);
+	echo json_encode($resultArray);

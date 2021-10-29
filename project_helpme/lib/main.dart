@@ -242,6 +242,7 @@ class _SJMainState extends State<SJMain> {
                                                         'id': list[index]['ID'],
                                                       },
                                                     );
+                                                    print(list[index]['ID']);
                                                   },
                                                 );
                                                 Navigator.pop(context);

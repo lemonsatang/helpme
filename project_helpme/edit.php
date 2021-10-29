@@ -19,23 +19,23 @@
 	$muser = $_POST['MUSER'];
 	$temp = $_POST['TEMP'];
 
-	$link->query("UPDATE crt_dft 
-					SET COMP = '".$comp."'
-					, C_CODE = '".$c_code."'
-					, J_BUNHO = '".$j_bunho."'
-					, PHONE = '".$phone."'
-					, FAX = '".$fax."'
-					, USRNM = '".$usrnm."'
-					, I_JOGUN = '".$i_jogun."'
-					, J_JOGUN = '".$j_jogun."'
-					, GUNSOO = '".$gunsoo."'
-					, SRYANG = '".$sryang."'
-					, JRYANG = '".$jryang."'
-					, BIGO = '".$bigo."'
-					, mdate = '".$mdate."' 
-					, muser = '".$muser."' 
-					, temp = '".$temp."' 
-					WHERE ID = '".$id."'
-					ORDER BY ID DESC");
+	$tsql = "UPDATE crt_dft 
+	SET COMP = '".$comp."'
+	, C_CODE = '".$c_code."'
+	, J_BUNHO = '".$j_bunho."'
+	, PHONE = '".$phone."'
+	, FAX = '".$fax."'
+	, USRNM = '".$usrnm."'
+	, I_JOGUN = '".$i_jogun."'
+	, J_JOGUN = '".$j_jogun."'
+	, GUNSOO = '".$gunsoo."'
+	, SRYANG = '".$sryang."'
+	, JRYANG = '".$jryang."'
+	, BIGO = '".$bigo."'
+	, mdate = '".$mdate."' 
+	, muser = '".$muser."' 
+	, temp = '".$temp."' 
+	WHERE ID = '".$id."'";
+	$getResults = sqlsrv_query($link, $tsql);
 
 ?>

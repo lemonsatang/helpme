@@ -210,11 +210,12 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                       builder: (context) => detailListKJ(
                         d_list: [],
                         d_index: -1,
-                        d_id: int.parse(widget.list[widget.index]['ID']),
+                        d_id: widget.list[widget.index]['ID'],
                         d_pdcod: 0,
                       ),
                     ),
                   );
+                  print(widget.list[widget.index]['ID']);
                 },
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),

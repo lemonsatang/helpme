@@ -239,7 +239,8 @@ class _SJMainState extends State<SJMain> {
                                                     http.post(
                                                       url,
                                                       body: {
-                                                        'id': list[index]['ID'],
+                                                        'id': list[index]['ID']
+                                                            .toString(),
                                                       },
                                                     );
                                                     print(list[index]['ID']);
@@ -376,7 +377,8 @@ class _SJMainState extends State<SJMain> {
                                                     http.post(
                                                       url,
                                                       body: {
-                                                        'id': list[index]['ID'],
+                                                        'id': list[index]['ID']
+                                                            .toString(),
                                                       },
                                                     );
                                                   },

@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:project_helpme/main.dart';
 import 'dart:convert';
 import 'dart:async';
-import 'package:project_helpme/detailList.dart';
 import 'package:project_helpme/kj_detailList.dart';
 
 class kj_AddEditPage extends StatefulWidget {
@@ -48,7 +47,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
 
   void _crtDataListKJ() async {
     var response = await http.post('${root_url}/kj_read_d.php',
-        body: {'ID': widget.list[widget.index]['ID']});
+        body: {'ID': widget.list[widget.index]['ID'].toString()});
 
     setState(() {
       _dataListKJ = json.decode(response.body);
@@ -59,7 +58,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
     if (editMode) {
       var url = '${root_url}/kj_edit.php';
       http.post(url, body: {
-        'ID': widget.list[widget.index]['ID'],
+        'ID': widget.list[widget.index]['ID'].toString(),
         'J_BUNHO': j_bunho.text,
         'KJ_ILJA': kj_ilja.text,
         'C_CODE': c_code.text,
@@ -81,7 +80,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
         'BOOGA': booga.text,
         'HAPGYE': hapgye.text,
         'BIGO': bigo.text,
-        'MUESR': muser.text,
+        'MUSER': muser.text,
       });
     } else {
       var url = '${root_url}/kj_add.php';
@@ -108,7 +107,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
           'BOOGA': booga.text,
           'HAPGYE': hapgye.text,
           'BIGO': bigo.text,
-          'CUESR': cuser.text,
+          'CUSER': cuser.text,
         });
       } catch (e) {
         print(e);
@@ -126,7 +125,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
       kj_ilja.text = widget.list[widget.index]['KJ_ILJA'];
       c_code.text = widget.list[widget.index]['C_CODE'];
       comp.text = widget.list[widget.index]['COMP'];
-      projno.text = widget.list[widget.index]['PROJNO'];
+      projno.text = widget.list[widget.index]['PROJNO'].toString();
       soosin.text = widget.list[widget.index]['SOOSIN'];
       chamjo.text = widget.list[widget.index]['CHAMJO'];
       phone.text = widget.list[widget.index]['PHONE'];
@@ -136,12 +135,12 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
       j_jogun.text = widget.list[widget.index]['J_JOGUN'];
       nabgi.text = widget.list[widget.index]['NABGI'];
       yoohyo.text = widget.list[widget.index]['YOOHYO'];
-      gunsoo.text = widget.list[widget.index]['GUNSOO'];
-      sryang.text = widget.list[widget.index]['SRYANG'];
+      gunsoo.text = widget.list[widget.index]['GUNSOO'].toString();
+      sryang.text = widget.list[widget.index]['SRYANG'].toString();
       jryang.text = widget.list[widget.index]['JRYANG'];
-      gonggup.text = widget.list[widget.index]['GONGGUP'];
-      booga.text = widget.list[widget.index]['BOOGA'];
-      hapgye.text = widget.list[widget.index]['HAPGYE'];
+      gonggup.text = widget.list[widget.index]['GONGGUP'].toString();
+      booga.text = widget.list[widget.index]['BOOGA'].toString();
+      hapgye.text = widget.list[widget.index]['HAPGYE'].toString();
       bigo.text = widget.list[widget.index]['BIGO'];
       cdate.text = widget.list[widget.index]['CDATE'];
       cuser.text = widget.list[widget.index]['CUSER'];
@@ -188,7 +187,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                         color: Colors.green[700],
                       ),
                       Text(
-                        '수정내용 저장',
+                        editMode ? '수정내용 저장' : '추가하기',
                         style: TextStyle(
                           fontSize: 12.0,
                         ),
@@ -197,47 +196,48 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  setState(
-                    () {
-                      addUpdateDataKJ();
-                    },
-                  );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => detailListKJ(
-                        d_list: [],
-                        d_index: -1,
-                        d_id: widget.list[widget.index]['ID'],
-                        d_pdcod: 0,
-                      ),
-                    ),
-                  );
-                  print(widget.list[widget.index]['ID']);
-                },
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.add,
-                        size: 16.0,
-                        color: Colors.green[700],
-                      ),
-                      Text(
-                        '상세내역 추가',
-                        style: TextStyle(
-                          fontSize: 12.0,
+              editMode
+                  ? InkWell(
+                      onTap: () {
+                        setState(
+                          () {
+                            addUpdateDataKJ();
+                          },
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => detailListKJ(
+                              d_list: [],
+                              d_index: -1,
+                              d_id: widget.list[widget.index]['ID'],
+                              d_pdcod: 0,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.add,
+                              size: 16.0,
+                              color: Colors.green[700],
+                            ),
+                            Text(
+                              '상세내역 추가',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    )
+                  : Container(),
             ],
             flexibleSpace: PreferredSize(
               preferredSize: Size.fromHeight(160.0),
@@ -590,9 +590,10 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                               MaterialPageRoute(
                                 builder: (context) => detailListKJ(
                                   d_list: _dataListKJ,
-                                  d_index: int.parse(item["SEQ"]) - 1,
-                                  d_id: int.parse(item["ID"]),
-                                  d_pdcod: int.parse(item["PDCOD"]),
+                                  d_index:
+                                      int.parse(item["SEQ"].toString()) - 1,
+                                  d_id: int.parse(item["ID"].toString()),
+                                  d_pdcod: int.parse(item["PDCOD"].toString()),
                                 ),
                               ),
                             );
@@ -600,7 +601,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                           cells: <DataCell>[
                             DataCell(Text(item["SEQ"].toString())),
                             DataCell(Text(item["PDNM"].toString())),
-                            DataCell(Text(item["SRYANG"])),
+                            DataCell(Text(item["SRYANG"].toString())),
                             DataCell(Text(item["JRYANG"] + " kg")),
                           ],
                         ),

@@ -22,7 +22,7 @@
 	$mdate = date("Y-m-d", time());
 	$muser = $_POST['CUSER'];
 
-	$link->query("UPDATE kj_d
+	$tsql = "UPDATE kj_d
 					SET PDNM = '".$pdnm."'
 					, MAKER = '".$maker."'
 					, JAEJIL = '".$jaejil."'
@@ -41,6 +41,8 @@
 					, mdate = '".$mdate."' 
 					, muser = '".$muser."' 
 					WHERE PDCOD = '".$pdcod."'
-					");
+					";
+
+	$getResults = sqlsrv_query($link, $tsql);
 
 ?>

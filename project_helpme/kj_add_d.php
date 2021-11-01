@@ -21,17 +21,23 @@
 	$cdate = date("Y-m-d", time());
 	$cuser = $_POST['CUSER'];
 
-	$query = $link->query("SELECT IFNULL(MAX(SEQ), 0)+1 as SEQ FROM kj_d WHERE ID='".$id."'");
+	$query = "SELECT ISNULL(MAX(SEQ), 0)+1 as SEQ , ISNULL(MAX(PDCOD), 0)+1 as PDCOD FROM kj_d WHERE ID='".$id."'";
+	$getResults = sqlsrv_query($link, $query);
 
 	$result = array();
 
-	while ($rowData = $query->fetch_assoc()) {
-		$result[] = $rowData;
+	while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
+		$result[] = $row;
 	}
+
 	echo json_encode($result[0]['SEQ']);
 	$seq = $result[0]['SEQ'];
 
-	$link->query("INSERT INTO kj_d(ID
+	echo json_encode($result[0]['PDCOD']);
+	$pdcod = $result[0]['PDCOD'];
+
+	$tsql = "INSERT INTO kj_d (PDCOD
+                                , ID
                                 , SEQ
                                 , PDNM
                                 , MAKER
@@ -50,7 +56,8 @@
                                 , BIGO
                                 , CDATE
                                 , CUSER)
-					    VALUES('".$id."'
+					    VALUES ('".$pdcod."'
+                            , '".$id."'
                             , '".$seq."'
                             , '".$pdnm."'
                             , '".$maker."'
@@ -68,5 +75,8 @@
                             , '".$hapgye."'
                             , '".$bigo."'
                             , '".$cdate."'
-                            , '".$cuser."')");
+                            , '".$cuser."')";
 
+    $getResult = sqlsrv_query($link, $tsql);
+
+?>

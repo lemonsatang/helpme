@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_helpme/main.dart';
 import 'dart:convert';
-import 'package:project_helpme/detailList.dart';
 import 'dart:async';
+import 'package:project_helpme/detailList.dart';
 
 class AddEditPage extends StatefulWidget {
   final List list;
@@ -62,7 +62,7 @@ class _AddEditPageState extends State<AddEditPage> {
         'SRYANG': sryang.text,
         'JRYANG': jryang.text,
         'BIGO': bigo.text,
-        'MUESR': muser.text,
+        'MUSER': muser.text,
       });
     } else {
       var url = '${root_url}/add.php';
@@ -80,7 +80,7 @@ class _AddEditPageState extends State<AddEditPage> {
           'SRYANG': sryang.text,
           'JRYANG': jryang.text,
           'BIGO': bigo.text,
-          'CUESR': cuser.text,
+          'CUSER': cuser.text,
         });
       } catch (e) {
         print(e);
@@ -151,7 +151,7 @@ class _AddEditPageState extends State<AddEditPage> {
                         color: Colors.green[700],
                       ),
                       Text(
-                        '수정내용 저장',
+                        editMode ? '수정내용 저장' : '추가하기',
                         style: TextStyle(
                           fontSize: 12.0,
                         ),
@@ -174,8 +174,7 @@ class _AddEditPageState extends State<AddEditPage> {
                             builder: (context) => detailList(
                                 d_list: [],
                                 d_index: -1,
-                                d_id:
-                                    int.parse(widget.list[widget.index]['ID']),
+                                d_id: widget.list[widget.index]['ID'],
                                 d_pdcod: 0),
                           ),
                         );
@@ -462,9 +461,10 @@ class _AddEditPageState extends State<AddEditPage> {
                               MaterialPageRoute(
                                 builder: (context) => detailList(
                                   d_list: d_dataList,
-                                  d_index: int.parse(item["SEQ"]) - 1,
-                                  d_id: int.parse(item["ID"]),
-                                  d_pdcod: int.parse(item["PDCOD"]),
+                                  d_index:
+                                      int.parse(item["SEQ"].toString()) - 1,
+                                  d_id: int.parse(item["ID"].toString()),
+                                  d_pdcod: int.parse(item["PDCOD"].toString()),
                                 ),
                               ),
                             );
@@ -472,7 +472,7 @@ class _AddEditPageState extends State<AddEditPage> {
                           cells: <DataCell>[
                             DataCell(Text(item["SEQ"].toString())),
                             DataCell(Text(item["PDNM"].toString())),
-                            DataCell(Text(item["SRYANG"])),
+                            DataCell(Text(item["SRYANG"].toString())),
                             DataCell(Text(item["JRYANG"] + " kg")),
                           ],
                         ),

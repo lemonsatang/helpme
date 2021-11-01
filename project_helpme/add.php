@@ -18,5 +18,21 @@
 	$cuser = $_POST['CUSER'];
 	$temp = $_POST['TEMP'];
 
-	$link->query("INSERT INTO crt_dft(COMP,C_CODE,J_BUNHO,PHONE,FAX,USRNM,I_JOGUN,J_JOGUN,GUNSOO,SRYANG,JRYANG,BIGO,CDATE,CUSER,TEMP)
-	VALUES('".$comp."','".$c_code."','".$j_bunho."','".$phone."','".$fax."','".$usrnm."','".$i_jogun."','".$j_jogun."','".$gunsoo."','".$sryang."','".$jryang."','".$bigo."','".$cdate."','".$cuser."','".$temp."')");
+	$query = "SELECT ISNULL(MAX(ID), 0)+1 as ID FROM crt_dft";
+	$getResults = sqlsrv_query($link, $query);
+	
+	$result = array();
+
+	while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
+		$result[] = $row;
+	}
+
+	echo json_encode($result[0]['ID']);
+	$ID = $result[0]['ID'];
+
+	$tsql = "INSERT INTO crt_dft (ID,COMP,C_CODE,J_BUNHO,PHONE,FAX,USRNM,I_JOGUN,J_JOGUN,GUNSOO,SRYANG,JRYANG,BIGO,CDATE,CUSER,TEMP)
+	VALUES ('".$ID."','".$comp."','".$c_code."','".$j_bunho."','".$phone."','".$fax."','".$usrnm."','".$i_jogun."','".$j_jogun."','".$gunsoo."','".$sryang."','".$jryang."','".$bigo."','".$cdate."','".$cuser."','".$temp."')";
+
+	$getResult = sqlsrv_query($link, $tsql);
+
+?>

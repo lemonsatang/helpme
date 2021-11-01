@@ -2,7 +2,7 @@
 
 include 'database.php';
 
-	$keyword = $_POST['KEYWORD'];
+	$id = $_POST['ID'];
 
 	$tsql = "SELECT * FROM kj_d where ID = '".$id."'";
 	$getResults = sqlsrv_query($link, $tsql);
@@ -17,3 +17,5 @@ include 'database.php';
 	}
 
 	echo json_encode($resultArray);
+
+?>

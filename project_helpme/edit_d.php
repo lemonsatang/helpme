@@ -18,7 +18,7 @@
 	$mdate = date("Y-m-d", time());
 	$muser = $_POST['MUSER'];
 
-	$link->query("UPDATE crt_dft_d
+	$tsql = "UPDATE crt_dft_d
 					SET COMP = '".$comp."'
 					, C_CODE = '".$c_code."'
 					, PDNM = '".$pdnm."'
@@ -34,6 +34,8 @@
 					, mdate = '".$mdate."' 
 					, muser = '".$muser."' 
 					WHERE PDCOD = '".$pdcod."'
-					");
+					";
+
+	$getResults = sqlsrv_query($link, $tsql);
 
 ?>

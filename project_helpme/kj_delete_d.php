@@ -2,6 +2,7 @@
 
 	include 'database.php';
 
-    $pdcod = $_POST['PDCOD'];
+	$pdcod = $_POST['PDCOD'];
 
-	$link->query("DELETE FROM kj_d WHERE PDCOD = '".$pdcod."'");
+	$tsql = "DELETE FROM kj_d WHERE PDCOD = '".$pdcod."'";
+	$getResults = sqlsrv_query($link, $tsql);

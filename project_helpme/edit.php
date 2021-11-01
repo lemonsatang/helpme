@@ -36,6 +36,7 @@
 	, muser = '".$muser."' 
 	, temp = '".$temp."' 
 	WHERE ID = '".$id."'";
+
 	$getResults = sqlsrv_query($link, $tsql);
 
 ?>

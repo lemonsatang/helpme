@@ -10,19 +10,4 @@
 
 	$link = sqlsrv_connect($serverName, $connectionInfo); 
 
-	// $hostname = 'localhost';
-	// $username = 'root';
-	// $pass = '';
-	// $dbname = 'helpme';
-
-	// $link = new mysqli($hostname,$username,$pass,$dbname);
-	// MySQL 접속
-
-	// if ($link) {
-	// 	echo "연결 성공!" . PHP_EOL;
-	// } else {
-	// 	echo "망함 ㅠㅠ" . PHP_EOL;
-	// 	die( print_r( sqlsrv_errors(), true));
-	// }
-
 ?>

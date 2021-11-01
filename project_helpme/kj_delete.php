@@ -4,4 +4,7 @@
 
 	$id = $_POST['id'];
 
-	$link->query("DELETE FROM kj_m WHERE id = '".$id."'");
+	$query = "DELETE FROM kj_m WHERE id = '".$id."'";
+	$getResults = sqlsrv_query($link, $query);
+
+?>

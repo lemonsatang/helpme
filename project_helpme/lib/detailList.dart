@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:project_helpme/kj_AddEditPage.dart';
 import 'package:project_helpme/main.dart';
 import 'package:project_helpme/AddEditPage.dart';
 import 'dart:convert';
@@ -46,42 +45,49 @@ class _detailListState extends State<detailList> {
 
   List _detailList = [];
 
-  void _crtDetailList() async {
-    var response = await http.post('${root_url}/read_d_data.php', body: {
-      'PDCOD': widget.d_list[widget.d_index]['PDCOD'],
-    });
-    _detailList = json.decode(response.body);
-    comp.text = _detailList[0]['COMP'];
-    c_code.text = _detailList[0]['C_CODE'];
-    pdnm.text = _detailList[0]['PDNM'];
-    maker.text = _detailList[0]['MAKER'];
-    jaejil.text = _detailList[0]['JAEJIL'];
-    size.text = _detailList[0]['SIZE'];
-    choolgo.text = _detailList[0]['CHOOLGO'];
+  // void _crtDetailList() async {
+  //   var response = await http.post('${root_url}/read_d_data.php', body: {
+  //     'PDCOD': widget.d_list[widget.d_index]['PDCOD'],
+  //   });
+  //   _detailList = json.decode(response.body);
+  //   comp.text = _detailList[0]['COMP'];
+  //   c_code.text = _detailList[0]['C_CODE'];
+  //   pdnm.text = _detailList[0]['PDNM'];
+  //   maker.text = _detailList[0]['MAKER'];
+  //   jaejil.text = _detailList[0]['JAEJIL'];
+  //   size.text = _detailList[0]['SIZE'];
+  //   choolgo.text = _detailList[0]['CHOOLGO'];
 
-    setState(() {
-      _detailList = json.decode(response.body);
-    });
-  }
+  //   setState(() {
+  //     _detailList = json.decode(response.body);
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
     if (widget.d_index != -1) {
-      _crtDetailList();
+      // _crtDetailList();
       editMode = true;
-      id.text = widget.d_list[widget.d_index]['ID'];
-      pdcod.text = widget.d_list[widget.d_index]['PDCOD'];
-      seq.text = widget.d_list[widget.d_index]['SEQ'];
-      sryang.text = widget.d_list[widget.d_index]['SRYANG'];
-      unit.text = widget.d_list[widget.d_index]['UNIT'];
-      u_jryang.text = widget.d_list[widget.d_index]['U_JRYANG'];
-      jryang.text = widget.d_list[widget.d_index]['JRYANG'];
-      bigo.text = widget.d_list[widget.d_index]['BIGO'];
-      cdate.text = widget.d_list[widget.d_index]['CDATE'];
-      mdate.text = widget.d_list[widget.d_index]['MDATE'];
-      cuser.text = widget.d_list[widget.d_index]['CUSER'];
-      muser.text = widget.d_list[widget.d_index]['MUSER'];
+      id.text = widget.d_list[widget.d_index]['ID'].toString();
+      pdcod.text = widget.d_list[widget.d_index]['PDCOD'].toString();
+      seq.text = widget.d_list[widget.d_index]['SEQ'].toString();
+      comp.text = widget.d_list[widget.d_index]['COMP'].toString();
+      c_code.text = widget.d_list[widget.d_index]['C_CODE'].toString();
+      pdnm.text = widget.d_list[widget.d_index]['PDNM'].toString();
+      maker.text = widget.d_list[widget.d_index]['MAKER'].toString();
+      jaejil.text = widget.d_list[widget.d_index]['JAEJIL'].toString();
+      size.text = widget.d_list[widget.d_index]['SIZE'].toString();
+      choolgo.text = widget.d_list[widget.d_index]['CHOOLGO'].toString();
+      sryang.text = widget.d_list[widget.d_index]['SRYANG'].toString();
+      unit.text = widget.d_list[widget.d_index]['UNIT'].toString();
+      u_jryang.text = widget.d_list[widget.d_index]['U_JRYANG'].toString();
+      jryang.text = widget.d_list[widget.d_index]['JRYANG'].toString();
+      bigo.text = widget.d_list[widget.d_index]['BIGO'].toString();
+      cdate.text = widget.d_list[widget.d_index]['CDATE'].toString();
+      mdate.text = widget.d_list[widget.d_index]['MDATE'].toString();
+      cuser.text = widget.d_list[widget.d_index]['CUSER'].toString();
+      muser.text = widget.d_list[widget.d_index]['MUSER'].toString();
     }
   }
 
@@ -153,7 +159,12 @@ class _detailListState extends State<detailList> {
                   addUpdateDetail();
                 },
               );
-              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NKFlutter(),
+                ),
+              );
             },
             child: Padding(
               padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
@@ -179,16 +190,39 @@ class _detailListState extends State<detailList> {
           editMode
               ? InkWell(
                   onTap: () {
-                    setState(
-                      () {
-                        deleteDetail();
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('삭제 경고'),
+                          content: Text('이 아이템을 정말로 삭제하시겠습니까?'),
+                          actions: [
+                            TextButton(
+                              child: Text('삭제'),
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    deleteDetail();
+                                  },
+                                );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NKFlutter(),
+                                  ),
+                                );
+                              },
+                            ),
+                            TextButton(
+                              child: Text('취소'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
                       },
-                    );
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NKFlutter(),
-                      ),
                     );
                   },
                   child: Padding(
@@ -305,6 +339,15 @@ class _detailListState extends State<detailList> {
                 controller: u_jryang,
                 decoration: InputDecoration(
                   labelText: '단위중량',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: jryang,
+                decoration: InputDecoration(
+                  labelText: '중량',
                 ),
               ),
             ),

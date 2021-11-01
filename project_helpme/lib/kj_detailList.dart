@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_helpme/main.dart';
-import 'package:project_helpme/AddEditPage.dart';
+import 'package:project_helpme/kj_AddEditPage.dart';
 import 'dart:convert';
 import 'dart:async';
 
@@ -11,12 +11,11 @@ class detailListKJ extends StatefulWidget {
   final int d_id;
   final int d_pdcod;
 
-  detailListKJ({
-    required this.d_list,
-    required this.d_index,
-    required this.d_id,
-    required this.d_pdcod,
-  });
+  detailListKJ(
+      {required this.d_list,
+      required this.d_index,
+      required this.d_id,
+      required this.d_pdcod});
 
   @override
   _detailListKJState createState() => _detailListKJState();
@@ -50,44 +49,43 @@ class _detailListKJState extends State<detailListKJ> {
 
   List _detailList = [];
 
+  // void _crtDetailList() async {
+  //   var response = await http.post('${root_url}/kj_read_d.php',
+  //       body: {'ID': widget.d_list[widget.d_index]['ID']});
+
+  //   setState(() {
+  //     _detailList = json.decode(response.body);
+  //   });
+  // }
+
   @override
   void initState() {
     super.initState();
     if (widget.d_index != -1) {
-      _crtDetailList();
+      // _crtDetailList();
       editMode = true;
       pdcod.text = widget.d_pdcod.toString();
-      seq.text = widget.d_list[widget.d_index]['SEQ'];
-      pdnm.text = widget.d_list[widget.d_index]['PDNM'];
-      maker.text = widget.d_list[widget.d_index]['MAKER'];
-      jaejil.text = widget.d_list[widget.d_index]['JAEJIL'];
-      size.text = widget.d_list[widget.d_index]['SIZE'];
-      choolgo.text = widget.d_list[widget.d_index]['CHOOLGO'];
-      sryang.text = widget.d_list[widget.d_index]['SRYANG'];
-      unit.text = widget.d_list[widget.d_index]['UNIT'];
-      u_jryang.text = widget.d_list[widget.d_index]['U_JRYANG'];
-      jryang.text = widget.d_list[widget.d_index]['JRYANG'];
-      danga.text = widget.d_list[widget.d_index]['DANGA'];
-      udanga.text = widget.d_list[widget.d_index]['UDANGA'];
-      gonggup.text = widget.d_list[widget.d_index]['GONGGUP'];
-      booga.text = widget.d_list[widget.d_index]['BOOGA'];
-      hapgye.text = widget.d_list[widget.d_index]['HAPGYE'];
-      bigo.text = widget.d_list[widget.d_index]['BIGO'];
-      cdate.text = widget.d_list[widget.d_index]['CDATE'];
-      mdate.text = widget.d_list[widget.d_index]['MDATE'];
-      cuser.text = widget.d_list[widget.d_index]['CUSER'];
-      muser.text = widget.d_list[widget.d_index]['MUSER'];
-      print(pdcod.text);
+      seq.text = widget.d_list[widget.d_index]['SEQ'].toString();
+      pdnm.text = widget.d_list[widget.d_index]['PDNM'].toString();
+      maker.text = widget.d_list[widget.d_index]['MAKER'].toString();
+      jaejil.text = widget.d_list[widget.d_index]['JAEJIL'].toString();
+      size.text = widget.d_list[widget.d_index]['SIZE'].toString();
+      choolgo.text = widget.d_list[widget.d_index]['CHOOLGO'].toString();
+      sryang.text = widget.d_list[widget.d_index]['SRYANG'].toString();
+      unit.text = widget.d_list[widget.d_index]['UNIT'].toString();
+      u_jryang.text = widget.d_list[widget.d_index]['U_JRYANG'].toString();
+      jryang.text = widget.d_list[widget.d_index]['JRYANG'].toString();
+      danga.text = widget.d_list[widget.d_index]['DANGA'].toString();
+      udanga.text = widget.d_list[widget.d_index]['UDANGA'].toString();
+      gonggup.text = widget.d_list[widget.d_index]['GONGGUP'].toString();
+      booga.text = widget.d_list[widget.d_index]['BOOGA'].toString();
+      hapgye.text = widget.d_list[widget.d_index]['HAPGYE'].toString();
+      bigo.text = widget.d_list[widget.d_index]['BIGO'].toString();
+      cdate.text = widget.d_list[widget.d_index]['CDATE'].toString();
+      mdate.text = widget.d_list[widget.d_index]['MDATE'].toString();
+      cuser.text = widget.d_list[widget.d_index]['CUSER'].toString();
+      muser.text = widget.d_list[widget.d_index]['MUSER'].toString();
     }
-  }
-
-  void _crtDetailList() async {
-    var response = await http.post('${root_url}/kj_read_d.php',
-        body: {'ID': widget.d_list[widget.d_index]['ID']});
-
-    setState(() {
-      _detailList = json.decode(response.body);
-    });
   }
 
   addUpdateDetail() {
@@ -101,15 +99,15 @@ class _detailListKJState extends State<detailListKJ> {
         'JAEJIL': jaejil.text,
         'SIZE': size.text,
         'CHOOLGO': choolgo.text,
-        'SRYANG': sryang.text,
+        'SRYANG': sryang.text.toString(),
         'UNIT': unit.text,
         'U_JRYANG': u_jryang.text,
         'JRYANG': jryang.text,
-        'DANGA': danga.text,
-        'UDANGA': udanga.text,
-        'GONGGUP': gonggup.text,
-        'BOOGA': booga.text,
-        'HAPGYE': hapgye.text,
+        'DANGA': danga.text.toString(),
+        'UDANGA': udanga.text.toString(),
+        'GONGGUP': gonggup.text.toString(),
+        'BOOGA': booga.text.toString(),
+        'HAPGYE': hapgye.text.toString(),
         'BIGO': bigo.text,
         'MUSER': muser.text,
       });
@@ -123,15 +121,15 @@ class _detailListKJState extends State<detailListKJ> {
           'JAEJIL': jaejil.text,
           'SIZE': size.text,
           'CHOOLGO': choolgo.text,
-          'SRYANG': sryang.text,
+          'SRYANG': sryang.text.toString(),
           'UNIT': unit.text,
           'U_JRYANG': u_jryang.text,
           'JRYANG': jryang.text,
-          'DANGA': danga.text,
-          'UDANGA': udanga.text,
-          'GONGGUP': gonggup.text,
-          'BOOGA': booga.text,
-          'HAPGYE': hapgye.text,
+          'DANGA': danga.text.toString(),
+          'UDANGA': udanga.text.toString(),
+          'GONGGUP': gonggup.text.toString(),
+          'BOOGA': booga.text.toString(),
+          'HAPGYE': hapgye.text.toString(),
           'BIGO': bigo.text,
           'CUSER': cuser.text,
         });
@@ -193,13 +191,39 @@ class _detailListKJState extends State<detailListKJ> {
           editMode
               ? InkWell(
                   onTap: () {
-                    setState(
-                      () {
-                        deleteData();
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('삭제 경고'),
+                          content: Text('이 아이템을 정말로 삭제하시겠습니까?'),
+                          actions: [
+                            TextButton(
+                              child: Text('삭제'),
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    deleteData();
+                                  },
+                                );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NKFlutter(),
+                                  ),
+                                );
+                              },
+                            ),
+                            TextButton(
+                              child: Text('취소'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
                       },
-                    );
-                    Navigator.pop(
-                      context,
                     );
                   },
                   child: Padding(

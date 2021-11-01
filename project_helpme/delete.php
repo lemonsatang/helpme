@@ -4,4 +4,7 @@
 
 	$id = $_POST['id'];
 
-	$link->query("DELETE FROM crt_dft WHERE id = '".$id."'");
+	$query = "DELETE FROM crt_dft WHERE id = '".$id."'";
+	$getResults = sqlsrv_query($link, $query);
+
+?>

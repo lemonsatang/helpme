@@ -591,7 +591,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                                 builder: (context) => detailListKJ(
                                   d_list: _dataListKJ,
                                   d_index:
-                                      int.parse(item["SEQ"].toString()) - 1,
+                                      int.parse(item["NUM"].toString()) - 1,
                                   d_id: int.parse(item["ID"].toString()),
                                   d_pdcod: int.parse(item["PDCOD"].toString()),
                                 ),

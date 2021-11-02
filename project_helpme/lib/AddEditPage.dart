@@ -462,7 +462,7 @@ class _AddEditPageState extends State<AddEditPage> {
                                 builder: (context) => detailList(
                                   d_list: d_dataList,
                                   d_index:
-                                      int.parse(item["SEQ"].toString()) - 1,
+                                      int.parse(item["NUM"].toString()) - 1,
                                   d_id: int.parse(item["ID"].toString()),
                                   d_pdcod: int.parse(item["PDCOD"].toString()),
                                 ),

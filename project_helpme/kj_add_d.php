@@ -22,11 +22,11 @@
 	$cuser = $_POST['CUSER'];
 
 	$query = "SELECT ISNULL(MAX(SEQ), 0)+1 as SEQ , ISNULL(MAX(PDCOD), 0)+1 as PDCOD FROM kj_d WHERE ID='".$id."'";
-	$getResults = sqlsrv_query($link, $query);
+	$getList = sqlsrv_query($link, $query);
 
 	$result = array();
 
-	while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
+	while ($row = sqlsrv_fetch_array($getList, SQLSRV_FETCH_ASSOC)) {
 		$result[] = $row;
 	}
 
@@ -77,6 +77,6 @@
                             , '".$cdate."'
                             , '".$cuser."')";
 
-    $getResult = sqlsrv_query($link, $tsql);
+    $getResults = sqlsrv_query($link, $tsql);
 
 ?>

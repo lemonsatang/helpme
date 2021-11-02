@@ -4,7 +4,7 @@ include 'database.php';
 
 	$id = $_POST['ID'];
 
-	$tsql = "SELECT * FROM crt_dft_d where ID = '".$id."'";
+	$tsql = "SELECT ROW_NUMBER() OVER(ORDER BY pdcod) AS NUM  ,* FROM crt_dft_d where ID = '".$id."'";
 	$getResults = sqlsrv_query($link, $tsql);
 
 	if ($getResults == FALSE)

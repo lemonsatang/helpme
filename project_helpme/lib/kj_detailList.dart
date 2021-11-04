@@ -179,7 +179,7 @@ class _detailListKJState extends State<detailListKJ> {
                     color: Colors.green[700],
                   ),
                   Text(
-                    editMode ? '저장' : '추가',
+                    editMode ? '저장' : '등록',
                     style: TextStyle(
                       fontSize: 12.0,
                     ),
@@ -408,7 +408,7 @@ class _detailListKJState extends State<detailListKJ> {
                   );
                 },
                 child: Text(
-                  editMode ? '수정된 내용 저장' : '추가하기',
+                  editMode ? '수정된 내용 저장' : '등록하기',
                   style: TextStyle(
                     color: Colors.white,
                   ),

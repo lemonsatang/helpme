@@ -151,7 +151,7 @@ class _AddEditPageState extends State<AddEditPage> {
                         color: Colors.green[700],
                       ),
                       Text(
-                        editMode ? '수정내용 저장' : '추가하기',
+                        editMode ? '수정내용 저장' : '등록하기',
                         style: TextStyle(
                           fontSize: 12.0,
                         ),
@@ -409,7 +409,7 @@ class _AddEditPageState extends State<AddEditPage> {
                       );
                     },
                     child: Text(
-                      editMode ? '수정된 내용 저장' : '추가하기',
+                      editMode ? '수정된 내용 저장' : '등록하기',
                       style: TextStyle(
                         color: Colors.white,
                       ),

@@ -602,7 +602,7 @@ class _kj_AddEditPageState extends State<kj_AddEditPage> {
                             DataCell(Text(item["SEQ"].toString())),
                             DataCell(Text(item["PDNM"].toString())),
                             DataCell(Text(item["SRYANG"].toString())),
-                            DataCell(Text(item["JRYANG"] + " kg")),
+                            DataCell(Text(item["JRYANG"])),
                           ],
                         ),
                       )

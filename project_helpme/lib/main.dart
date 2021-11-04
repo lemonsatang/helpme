@@ -210,7 +210,7 @@ class _SJMainState extends State<SJMain> {
                                         ],
                                       ),
                                       Text(
-                                        '전표번호 : ' + list[index]['C_CODE'],
+                                        '전표번호 : ' + list[index]['J_BUNHO'],
                                         style: TextStyle(
                                           fontSize: 12,
                                         ),
@@ -348,7 +348,7 @@ class _SJMainState extends State<SJMain> {
                                         ],
                                       ),
                                       Text(
-                                        '전표번호 : ' + list[index]['C_CODE'],
+                                        '전표번호 : ' + list[index]['J_BUNHO'],
                                         style: TextStyle(
                                           fontSize: 12,
                                         ),
